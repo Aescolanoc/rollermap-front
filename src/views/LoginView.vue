@@ -1,7 +1,7 @@
 <template>
   <div>Login</div>
   <v-btn @click="loginClicked()">Iniciar sesion</v-btn>
-  <v-snackbar v-model="showError">Error al conectar</v-snackbar>
+  <v-snackbar v-model="showError">Error al conectar con el servidor</v-snackbar>
 </template>
 
 <script lang="ts">
@@ -41,5 +41,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped></style>

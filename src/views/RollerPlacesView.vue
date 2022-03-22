@@ -5,11 +5,16 @@
 </template>
 
 <script lang="ts">
+import { useRollerMapStore } from "@/stores/store";
 import RollerPlacesList from "@/components/RollerPlacesList.vue";
 
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  setup() {
+    const store = useRollerMapStore();
+    return { store };
+  },
   components: {
     RollerPlacesList,
   },
@@ -45,7 +50,11 @@ export default defineComponent({
       ],
     };
   },
+  // created() {
+  //   this.loadData();
+  // },
+  // methods: {
+  //   loadData() {},
+  // },
 });
 </script>
-
-<style scoped></style>
