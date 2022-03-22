@@ -8,3 +8,7 @@ const api = axios.create({
 export function login(user: object) {
   return api.post("/login", user);
 }
+
+export function getAllRollerPlaces() {
+  return api.get("/rollerplaces");
+}

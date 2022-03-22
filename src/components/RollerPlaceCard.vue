@@ -13,9 +13,14 @@
 </template>
 
 <script lang="ts">
+import { useRollerMapStore } from "@/stores/store";
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  setup() {
+    const store = useRollerMapStore();
+    return { store };
+  },
   props: {
     place: {
       type: Object,
@@ -25,30 +30,38 @@ export default defineComponent({
   data() {
     return {
       user: {
-        name: "Pepe",
-        email: "pepe@pepe.es",
-        password: "1234",
-        favorites: ["a"],
-        myrollerplaces: [],
+        id: "",
+        name: "",
+        email: "",
+        password: "",
+        favorites: [{}],
+        myrollerplaces: [{}],
       },
     };
   },
   created() {
-    console.log(this.isInFavorites());
+    this.user = this.store.user;
   },
   methods: {
     isInFavorites() {
-      return this.user.favorites.includes(this.place.id);
+      console.log("favorites", this.user.favorites);
+      console.log(
+        this.user.favorites.find((item: any) => +item._id === +this.place._id)
+      );
+      console.log(this.place._id);
+      return this.user.favorites.find(
+        (item: any) => +item._id === +this.place._id
+      );
     },
     favoriteClicked() {
       if (this.isInFavorites()) {
         const indexPlace = this.user.favorites.findIndex(
-          (fav) => fav === this.place.id
+          (fav) => fav === this.place._id
         );
 
         this.user.favorites.splice(indexPlace, 1);
       } else {
-        this.user.favorites.push(this.place.id);
+        this.user.favorites.push(this.place._id);
       }
     },
   },

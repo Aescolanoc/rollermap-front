@@ -9,8 +9,11 @@ export const useRollerMapStore = defineStore({
     rollerPlaces: [],
   }),
   actions: {
-    async login() {
-      return await api.login({ email: "pepe@pepe.es", password: "1234" });
+    async login(user: object) {
+      return await api.login(user);
+    },
+    async getAllRollerPlaces() {
+      return await api.getAllRollerPlaces();
     },
   },
 });

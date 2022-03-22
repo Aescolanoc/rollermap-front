@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="item in places" :key="item.id">
+    <div v-for="item in places" :key="item._id">
       <roller-place-card :place="item"></roller-place-card>
     </div>
   </div>
