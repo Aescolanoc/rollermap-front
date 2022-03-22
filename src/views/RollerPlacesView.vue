@@ -1,6 +1,6 @@
 <template>
   <div>
-    <roller-places-list :places="placesArray"></roller-places-list>
+    <roller-places-list></roller-places-list>
   </div>
 </template>
 
@@ -18,24 +18,24 @@ export default defineComponent({
   components: {
     RollerPlacesList,
   },
-  data() {
-    return {
-      placesArray: [],
-    };
-  },
+
   created() {
     this.loadData();
   },
   methods: {
     loadData() {
-      this.store.getAllRollerPlaces().then((resp) => {
-        if (resp.data) {
-          this.store.$patch({
-            rollerPlaces: resp.data,
-          });
-          this.placesArray = resp.data;
-        }
-      });
+      this.store
+        .getAllRollerPlaces()
+        .then((resp) => {
+          if (resp.data) {
+            this.store.$patch({
+              rollerPlaces: resp.data,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 });

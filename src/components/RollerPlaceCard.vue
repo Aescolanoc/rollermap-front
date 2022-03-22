@@ -3,7 +3,7 @@
     {{ place.name }}
     {{ place.description }}
     <img :src="place.image" :alt="place.name" />
-    <v-btn icon v-if="isInFavorites()" @click="favoriteClicked">
+    <v-btn icon v-if="isInFavorites" @click="favoriteClicked">
       <v-icon color="purple">mdi-heart</v-icon>
     </v-btn>
     <v-btn icon v-else @click="favoriteClicked">
@@ -14,7 +14,12 @@
 
 <script lang="ts">
 import { useRollerMapStore } from "@/stores/store";
+import type User from "@/types/User";
 import { defineComponent } from "vue";
+
+interface DataI {
+  user: User;
+}
 
 export default defineComponent({
   setup() {
@@ -27,42 +32,38 @@ export default defineComponent({
       required: true,
     },
   },
-  data() {
+  computed: {
+    isInFavorites() {
+      return this.store.user.favorites.includes(this.place._id);
+    },
+  },
+  data(): DataI {
     return {
       user: {
         id: "",
         name: "",
         email: "",
         password: "",
-        favorites: [{}],
-        myrollerplaces: [{}],
+        favorites: [],
+        myrollerplaces: [],
       },
     };
   },
-  created() {
-    this.user = this.store.user;
-  },
   methods: {
-    isInFavorites() {
-      console.log("favorites", this.user.favorites);
-      console.log(
-        this.user.favorites.find((item: any) => +item._id === +this.place._id)
-      );
-      console.log(this.place._id);
-      return this.user.favorites.find(
-        (item: any) => +item._id === +this.place._id
-      );
-    },
     favoriteClicked() {
-      if (this.isInFavorites()) {
-        const indexPlace = this.user.favorites.findIndex(
-          (fav) => fav === this.place._id
-        );
-
-        this.user.favorites.splice(indexPlace, 1);
-      } else {
-        this.user.favorites.push(this.place._id);
-      }
+      let placeId = this.place._id;
+      this.store
+        .toggleFavorites(placeId)
+        .then((resp) => {
+          if (resp.data) {
+            this.store.$patch({
+              user: resp.data,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 });

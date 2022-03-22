@@ -1,27 +1,23 @@
 <template>
   <div>
-    <div v-for="item in places" :key="item._id">
+    <div v-for="item in store.rollerPlaces" :key="item._id">
       <roller-place-card :place="item"></roller-place-card>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { useRollerMapStore } from "@/stores/store";
 import RollerPlaceCard from "./RollerPlaceCard.vue";
-import type RollerPlace from "@/types/RollerPlace";
-
 import { defineComponent } from "vue";
-import type { PropType } from "vue";
 
 export default defineComponent({
+  setup() {
+    const store = useRollerMapStore();
+    return { store };
+  },
   components: {
     RollerPlaceCard,
-  },
-  props: {
-    places: {
-      type: Array as PropType<RollerPlace[]>,
-      required: true,
-    },
   },
 });
 </script>

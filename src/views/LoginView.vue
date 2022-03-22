@@ -2,7 +2,15 @@
   <div>Login</div>
   <v-form @submit.prevent="loginClicked">
     <v-text-field v-model="email" label="E-mail" required></v-text-field>
-    <v-text-field v-model="password" label="Password" required></v-text-field>
+    <v-text-field
+      v-model="password"
+      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+      :type="show1 ? 'text' : 'password'"
+      name="input-10-1"
+      label="Password"
+      @click:append="show1 = !show1"
+      required
+    ></v-text-field>
   </v-form>
   <v-btn @click="loginClicked()">Iniciar sesion</v-btn>
   <v-snackbar v-model="showError">Error al conectar con el servidor</v-snackbar>
@@ -22,6 +30,8 @@ export default defineComponent({
       showError: false as boolean,
       email: "",
       password: "",
+
+      show1: false,
     };
   },
   methods: {
