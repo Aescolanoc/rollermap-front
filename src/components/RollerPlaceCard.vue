@@ -1,25 +1,32 @@
 <template>
-  <div>
-    {{ place.name }}
-    {{ place.description }}
-    <img :src="place.image" :alt="place.name" />
-    <v-btn icon v-if="isInFavorites" @click="favoriteClicked">
-      <v-icon color="purple">mdi-heart</v-icon>
-    </v-btn>
-    <v-btn icon v-else @click="favoriteClicked">
-      <v-icon color="purple">mdi-heart-outline</v-icon>
-    </v-btn>
-  </div>
+  <v-hover v-slot="{ isHovering, props }">
+    <v-card
+      class="roller-card"
+      min-width="320"
+      :elevation="isHovering ? 16 : 2"
+      v-bind="props"
+    >
+      <v-img :src="place.image" :alt="place.name" height="200px" cover></v-img>
+
+      <v-card-title> {{ place.name }} </v-card-title>
+
+      <v-card-actions>
+        <v-btn icon v-if="isInFavorites" @click="favoriteClicked">
+          <v-icon color="purple">mdi-heart</v-icon>
+        </v-btn>
+        <v-btn icon v-else @click="favoriteClicked">
+          <v-icon color="purple">mdi-heart-outline</v-icon>
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn color="purple-darken-3" variant="text"> Ver más </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-hover>
 </template>
 
 <script lang="ts">
 import { useRollerMapStore } from "@/stores/store";
-import type User from "@/types/User";
 import { defineComponent } from "vue";
-
-interface DataI {
-  user: User;
-}
 
 export default defineComponent({
   setup() {
@@ -37,18 +44,7 @@ export default defineComponent({
       return this.store.user.favorites.includes(this.place._id);
     },
   },
-  data(): DataI {
-    return {
-      user: {
-        id: "",
-        name: "",
-        email: "",
-        password: "",
-        favorites: [],
-        myrollerplaces: [],
-      },
-    };
-  },
+
   methods: {
     favoriteClicked() {
       let placeId = this.place._id;
@@ -68,3 +64,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss">
+.roller-card {
+  margin-bottom: 24px;
+}
+</style>
