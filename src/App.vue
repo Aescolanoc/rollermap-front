@@ -4,7 +4,7 @@
       <template v-slot:prepend>
         <v-app-bar-nav-icon color="purple-darken-3"></v-app-bar-nav-icon>
       </template>
-
+      <img src="@/assets/logo.png" alt="" />
       <v-spacer></v-spacer>
 
       <v-btn icon>

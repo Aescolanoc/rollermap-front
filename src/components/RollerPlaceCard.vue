@@ -18,7 +18,9 @@
           <v-icon color="purple">mdi-heart-outline</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="purple-darken-3" variant="text"> Ver más </v-btn>
+        <v-btn color="purple-darken-3" variant="text" @click="detailsClicked">
+          Ver más
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-hover>
@@ -49,6 +51,12 @@ export default defineComponent({
     favoriteClicked() {
       let placeId = this.place._id;
       this.store.toggleFavorites(placeId);
+    },
+    detailsClicked() {
+      this.$router.push({
+        name: "details",
+        params: { routeId: this.place._id },
+      });
     },
   },
 });

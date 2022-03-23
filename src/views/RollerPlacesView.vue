@@ -1,6 +1,12 @@
 <template>
   <div>
     <roller-places-list></roller-places-list>
+    <div class="text-center">
+      <v-pagination
+        v-model="page"
+        :length="store.rollerPlaces.length / 2"
+      ></v-pagination>
+    </div>
   </div>
 </template>
 
@@ -17,6 +23,11 @@ export default defineComponent({
   },
   components: {
     RollerPlacesList,
+  },
+  data() {
+    return {
+      page: 1,
+    };
   },
 
   created() {

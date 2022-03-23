@@ -11,7 +11,13 @@ const router = createRouter({
     {
       path: "/register",
       name: "register",
-      component: () => import("../views/registerUserView.vue"),
+      component: () => import("../views/RegisterUserView.vue"),
+    },
+    {
+      path: "/rollerplaces/:routeId",
+      name: "details",
+      component: () => import("../views/RollerPlaceDetailsView.vue"),
+      props: true,
     },
     {
       path: "/",
