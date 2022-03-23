@@ -68,5 +68,6 @@ export default defineComponent({
 <style lang="scss">
 .roller-card {
   margin-bottom: 24px;
+  cursor: pointer;
 }
 </style>
