@@ -24,18 +24,7 @@ export default defineComponent({
   },
   methods: {
     loadData() {
-      this.store
-        .getAllRollerPlaces()
-        .then((resp) => {
-          if (resp.data) {
-            this.store.$patch({
-              rollerPlaces: resp.data,
-            });
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.store.getAllRollerPlaces();
     },
   },
 });

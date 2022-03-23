@@ -1,9 +1,10 @@
-import axios from "axios";
+import type RollerPlace from "@/types/RollerPlace";
+import axios, { type AxiosResponse } from "axios";
 
 let token: any = localStorage.getItem("userToken");
 token = "Bearer " + JSON.parse(token);
 
-const apiLogin = axios.create({
+const api = axios.create({
   baseURL: "http://localhost:4500",
   timeout: 20000,
 });
@@ -15,10 +16,18 @@ const apiToken = axios.create({
 });
 
 export function login(user: object) {
-  return apiLogin.post("/login", user);
+  return api.post("/login", user);
 }
 
-export function getAllRollerPlaces() {
+export function register(user: object) {
+  return api({
+    method: "post",
+    url: `users`,
+    data: user,
+  });
+}
+
+export function getAllRollerPlaces(): Promise<AxiosResponse<RollerPlace[]>> {
   return apiToken.get("/rollerplaces", { headers: { Authorization: token } });
 }
 

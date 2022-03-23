@@ -7,4 +7,5 @@ export default interface User {
   password: string;
   favorites: Array<RollerPlace>;
   myrollerplaces: Array<RollerPlace>;
+  token?: string;
 }

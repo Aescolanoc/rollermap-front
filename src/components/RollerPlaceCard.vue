@@ -48,18 +48,7 @@ export default defineComponent({
   methods: {
     favoriteClicked() {
       let placeId = this.place._id;
-      this.store
-        .toggleFavorites(placeId)
-        .then((resp) => {
-          if (resp.data) {
-            this.store.$patch({
-              user: resp.data,
-            });
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.store.toggleFavorites(placeId);
     },
   },
 });
