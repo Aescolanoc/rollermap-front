@@ -2,10 +2,10 @@
   <div>
     registro
     <v-form @submit.prevent="registerClicked">
-      <v-text-field v-model="name" label="name" required></v-text-field>
-      <v-text-field v-model="email" label="E-mail" required></v-text-field>
+      <v-text-field v-model="user.name" label="name" required></v-text-field>
+      <v-text-field v-model="user.email" label="E-mail" required></v-text-field>
       <v-text-field
-        v-model="password"
+        v-model="user.password"
         :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
         :type="show1 ? 'text' : 'password'"
         label="Password"
@@ -38,21 +38,24 @@ export default defineComponent({
   data() {
     return {
       showError: false as boolean,
-      name: "",
-      email: "",
-      password: "",
+      user: {
+        name: "",
+        email: "",
+        password: "",
+      },
       password2: "",
+
       show1: false,
       show2: false,
     };
   },
   methods: {
     registerClicked() {
-      if (this.password === this.password2) {
+      if (this.user.password === this.password2) {
         let user = {
-          name: this.name,
-          email: this.email,
-          password: this.password,
+          name: this.user.name,
+          email: this.user.email,
+          password: this.user.password,
         };
         this.store.register(user);
         this.$router.push({ name: "login" });

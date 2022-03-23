@@ -16,7 +16,6 @@ export const useRollerMapStore = defineStore({
         const { data } = await api.login(user);
         this.user = data;
         localStorage.setItem("userToken", JSON.stringify(this.user.token));
-        console.log(data);
       } catch (error) {
         return error;
       }
