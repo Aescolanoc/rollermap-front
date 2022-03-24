@@ -1,4 +1,5 @@
 <template>
+  Paseo de coches - Retiro
   <v-hover v-slot="{ isHovering, props }">
     <v-card
       class="roller-card"
@@ -41,9 +42,10 @@ export default defineComponent({
       required: true,
     },
   },
+
   computed: {
     isInFavorites() {
-      return this.store.user.favorites.includes(this.place._id);
+      return this.store?.user?.favorites?.includes(this.place._id);
     },
   },
 

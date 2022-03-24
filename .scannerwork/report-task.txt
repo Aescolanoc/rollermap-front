@@ -2,5 +2,5 @@ projectKey=Roller_Map_Front
 serverUrl=http://localhost:9000
 serverVersion=9.2.0.49834
 dashboardUrl=http://localhost:9000/dashboard?id=Roller_Map_Front
-ceTaskId=AX-z_i5HnDF0L3GmQ4ES
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AX-z_i5HnDF0L3GmQ4ES
+ceTaskId=AX-5Z2bcR-p3r9gIX-t4
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AX-5Z2bcR-p3r9gIX-t4
