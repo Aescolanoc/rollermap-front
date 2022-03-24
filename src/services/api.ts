@@ -1,9 +1,12 @@
 import type RollerPlace from "@/types/RollerPlace";
 import axios, { type AxiosResponse } from "axios";
+import { useRollerMapStore } from "@/stores/store";
 
-let token: any = localStorage.getItem("userToken");
-token = "Bearer " + JSON.parse(token);
-
+function getToken() {
+  let token: any = localStorage.getItem("userToken");
+  token = "Bearer " + JSON.parse(token);
+  return token;
+}
 const api = axios.create({
   baseURL: "http://localhost:4500",
   timeout: 20000,
@@ -12,8 +15,21 @@ const api = axios.create({
 const apiToken = axios.create({
   baseURL: "http://localhost:4500",
   timeout: 20000,
-  headers: { Authorization: token },
 });
+
+apiToken.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    console.log("Interceptor error:", error, error.response.status);
+    if (error?.response?.status === 401) {
+      const store = useRollerMapStore();
+      store.userLogOut();
+    }
+    return Promise.reject(error);
+  }
+);
 
 export function login(user: object) {
   return api.post("/login", user);
@@ -28,7 +44,13 @@ export function register(user: object) {
 }
 
 export function getAllRollerPlaces(): Promise<AxiosResponse<RollerPlace[]>> {
-  return apiToken.get("/rollerplaces", { headers: { Authorization: token } });
+  return apiToken.get("/rollerplaces", { headers: { Authorization: getToken() } });
+}
+
+export function getMyRollerPlaces(): Promise<AxiosResponse<RollerPlace[]>> {
+  return apiToken.get("/rollerplaces/myrollerplaces", {
+    headers: { Authorization: getToken() },
+  });
 }
 
 export function toggleFavorites(placeId: string) {
@@ -36,5 +58,6 @@ export function toggleFavorites(placeId: string) {
     method: "put",
     url: `rollerplaces/favorites/${placeId}`,
     data: {},
+    headers: { Authorization: getToken() },
   });
 }

@@ -22,6 +22,9 @@
     </v-form>
     <v-btn @click="registerClicked()">Registro</v-btn>
     <v-snackbar v-model="showError">Las contraseñas no coinciden</v-snackbar>
+    <v-snackbar v-model="showErrorWrongData"
+      >Rellene todos los campos</v-snackbar
+    >
   </div>
 </template>
 
@@ -37,6 +40,7 @@ export default defineComponent({
   data() {
     return {
       showError: false as boolean,
+      showErrorWrongData: false as boolean,
       user: {
         name: "",
         email: "",
@@ -51,13 +55,17 @@ export default defineComponent({
   methods: {
     registerClicked() {
       if (this.user.password === this.password2) {
-        let user = {
-          name: this.user.name,
-          email: this.user.email,
-          password: this.user.password,
-        };
-        this.store.register(user);
-        this.$router.push({ name: "login" });
+        if (this.user.name !== "" && this.user.email !== "") {
+          let newUser = {
+            name: this.user.name,
+            email: this.user.email,
+            password: this.user.password,
+          };
+
+          this.store.register(newUser);
+          this.$router.push({ name: "login" });
+        }
+        this.showErrorWrongData = true;
       } else {
         this.showError = true;
       }

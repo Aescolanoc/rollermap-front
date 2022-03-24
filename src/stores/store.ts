@@ -2,22 +2,31 @@ import { defineStore } from "pinia";
 import * as api from "../services/api";
 import type User from "@/types/User";
 import type RollerPlace from "@/types/RollerPlace";
+import router from "@/router/index";
 
 export const useRollerMapStore = defineStore({
   id: "rollermap",
   state: () => ({
     user: {} as User,
     rollerPlaces: [] as RollerPlace[],
+    userRollerPlaces: [] as RollerPlace[],
   }),
 
   actions: {
+    userLogOut() {
+      this.$reset();
+      localStorage.removeItem("userToken");
+      router.push({ name: "login" });
+    },
+
     async login(user: object) {
       try {
         const { data } = await api.login(user);
+        localStorage.setItem("userToken", JSON.stringify(data.token));
         this.user = data;
-        localStorage.setItem("userToken", JSON.stringify(this.user.token));
-      } catch (error) {
-        return error;
+        return this.user;
+      } catch (error: any) {
+        throw new Error(error.message);
       }
     },
 
@@ -34,8 +43,19 @@ export const useRollerMapStore = defineStore({
       try {
         const { data } = await api.getAllRollerPlaces();
         this.rollerPlaces = data;
-      } catch (error) {
-        return error;
+        return data;
+      } catch (error: any) {
+        throw new Error(error.message);
+      }
+    },
+
+    async getMyRollerPlaces() {
+      try {
+        const { data } = await api.getMyRollerPlaces();
+        this.userRollerPlaces = data;
+        return data;
+      } catch (error: any) {
+        throw new Error(error.message);
       }
     },
 

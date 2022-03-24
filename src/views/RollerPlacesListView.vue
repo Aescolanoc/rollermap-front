@@ -1,11 +1,9 @@
 <template>
   <div>
-    <roller-places-list></roller-places-list>
-    <div class="text-center">
-      <v-pagination
-        v-model="page"
-        :length="store.rollerPlaces.length / 2"
-      ></v-pagination>
+    <h1>Listado de pistas</h1>
+    <roller-places-list v-if="!loading"></roller-places-list>
+    <div v-else class="text-center">
+      <v-progress-circular :size="70" :width="7" color="purple-darken-3" indeterminate></v-progress-circular>
     </div>
   </div>
 </template>
@@ -26,16 +24,20 @@ export default defineComponent({
   },
   data() {
     return {
-      page: 1,
+      loading: true,
     };
   },
-
   created() {
     this.loadData();
   },
   methods: {
-    loadData() {
-      this.store.getAllRollerPlaces();
+    async loadData() {
+      try {
+        await this.store.getAllRollerPlaces();
+        this.loading = false;
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 });

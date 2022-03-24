@@ -1,12 +1,7 @@
 <template>
   <p>{{ place.type }}</p>
   <v-hover v-slot="{ isHovering, props }">
-    <v-card
-      class="roller-card"
-      min-width="320"
-      :elevation="isHovering ? 16 : 2"
-      v-bind="props"
-    >
+    <v-card class="roller-card" min-width="320" :elevation="isHovering ? 16 : 2" v-bind="props">
       <v-img :src="place.image" :alt="place.name" height="200px" cover></v-img>
 
       <v-card-title class="name"> {{ place.name }} </v-card-title>
@@ -19,9 +14,7 @@
           <v-icon color="purple">mdi-heart-outline</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="purple-darken-3" variant="text" @click="detailsClicked">
-          Ver más
-        </v-btn>
+        <v-btn color="purple-darken-3" variant="text" @click="detailsClicked"> Ver más </v-btn>
       </v-card-actions>
     </v-card>
   </v-hover>

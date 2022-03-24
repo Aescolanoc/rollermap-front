@@ -12,9 +12,7 @@
     ></v-text-field>
   </v-form>
   <v-btn @click="loginClicked()">Iniciar sesion</v-btn>
-  <v-btn color="purple-darken-3" variant="text" @click="registerClicked">
-    Registrate aquí
-  </v-btn>
+  <v-btn color="purple-darken-3" variant="text" @click="registerClicked"> Registrate aquí </v-btn>
   <v-snackbar v-model="showError">Error al conectar con el servidor</v-snackbar>
 </template>
 
@@ -36,9 +34,15 @@ export default defineComponent({
     };
   },
   methods: {
-    loginClicked() {
-      this.store.login({ email: this.email, password: this.password });
-      this.$router.push({ name: "rollerplaces" });
+    async loginClicked() {
+      try {
+        let response = await this.store.login({ email: this.email, password: this.password });
+        if (response) {
+          this.$router.push({ name: "rollerplaces" });
+        }
+      } catch (error) {
+        this.showError = true;
+      }
     },
     registerClicked() {
       this.$router.push({ name: "register" });
