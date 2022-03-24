@@ -1,7 +1,7 @@
 #
 .vscode/
 .DS_Store
-.scannerwork
+.scannerwork/
 
 # Logs
 logs
