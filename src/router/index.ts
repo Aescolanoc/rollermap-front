@@ -24,6 +24,11 @@ const router = createRouter({
       name: "rollerplaces",
       component: () => import("../views/RollerPlacesListView.vue"),
     },
+    {
+      path: "/myrollerplaces",
+      name: "myrollerplaces",
+      component: () => import("../views/MyRollerPlacesView.vue"),
+    },
   ],
 });
 
