@@ -1,5 +1,5 @@
 <template>
-  Paseo de coches - Retiro
+  <p>{{ place.type }}</p>
   <v-hover v-slot="{ isHovering, props }">
     <v-card
       class="roller-card"
@@ -9,13 +9,13 @@
     >
       <v-img :src="place.image" :alt="place.name" height="200px" cover></v-img>
 
-      <v-card-title> {{ place.name }} </v-card-title>
+      <v-card-title class="name"> {{ place.name }} </v-card-title>
 
       <v-card-actions>
-        <v-btn icon v-if="isInFavorites" @click="favoriteClicked">
+        <v-btn icon class="yes" v-if="isInFavorites" @click="favoriteClicked">
           <v-icon color="purple">mdi-heart</v-icon>
         </v-btn>
-        <v-btn icon v-else @click="favoriteClicked">
+        <v-btn icon class="no" v-else @click="favoriteClicked">
           <v-icon color="purple">mdi-heart-outline</v-icon>
         </v-btn>
         <v-spacer></v-spacer>

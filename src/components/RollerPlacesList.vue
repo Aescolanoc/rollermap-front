@@ -1,4 +1,5 @@
 <template>
+  <h1>Listado de pistas</h1>
   <div class="d-flex flex-column justify-space-around flex-sm-row">
     <div v-for="item in store.rollerPlaces" :key="item._id">
       <roller-place-card :place="item"></roller-place-card>

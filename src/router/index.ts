@@ -22,7 +22,7 @@ const router = createRouter({
     {
       path: "/",
       name: "rollerplaces",
-      component: () => import("../views/RollerPlacesView.vue"),
+      component: () => import("../views/RollerPlacesListView.vue"),
     },
   ],
 });

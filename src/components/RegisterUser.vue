@@ -1,6 +1,5 @@
 <template>
   <div>
-    registro
     <v-form @submit.prevent="registerClicked">
       <v-text-field v-model="user.name" label="name" required></v-text-field>
       <v-text-field v-model="user.email" label="E-mail" required></v-text-field>

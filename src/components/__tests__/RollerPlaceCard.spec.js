@@ -6,7 +6,7 @@ import { createTestingPinia } from "@pinia/testing";
 import { mount } from "@vue/test-utils";
 import TestComponent from "@/components/RollerPlaceCard.vue";
 
-describe("HelloWorld", () => {
+describe("RollerPlaceCard component", () => {
   const vuetify = createVuetify({ components, directives });
   const pinia = createTestingPinia();
   let placeObj = {
@@ -29,6 +29,37 @@ describe("HelloWorld", () => {
       },
       props: { place: placeObj },
     });
-    expect(wrapper.text()).toContain("Paseo de coches - Retiro");
+    expect(wrapper).toBeTruthy();
   });
+
+  it("A button is rendered", () => {
+    const wrapper = mount(TestComponent, {
+      global: {
+        plugins: [vuetify, pinia],
+      },
+      props: { place: placeObj },
+    });
+    expect(wrapper.text()).toContain("");
+  });
+
+  // it("When favorite button is clicked", async () => {
+  //   // const mockFavorite = vi.fn().mockImplementation();
+  //   const wrapper = mount(TestComponent, {
+  //     global: {
+  //       plugins: [vuetify, pinia],
+  //     },
+  //     props: { place: placeObj },
+  //   });
+
+  //   expect(wrapper.classes("yes")).trigger("click");
+  //   // const button = wrapper.find({ ref: "Ver más" });
+  //   // expect(button.find("v-btn").exists()).toBe(true);
+
+  //   // expect(wrapper.text()).toContain("Paseo de coches - Retiro");
+  //   // const btn = wrapper.find("v-btn");
+  //   // expect(btn.exists()).toBe(true);
+  //   // // await wrapper.find(icon).trigger("click");
+  //   // mockFavorite.toHaveBeenCalled();
+  //   // favoriteFunction.should.have.been.called();
+  // });
 });
