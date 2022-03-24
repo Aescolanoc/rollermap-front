@@ -1,9 +1,6 @@
 <template>
   <v-app>
     <v-app-bar>
-      <template v-slot:prepend>
-        <v-app-bar-nav-icon color="purple-darken-3"></v-app-bar-nav-icon>
-      </template>
       <img
         class="logo"
         src="./assets/img/rollermap_logo.png"
@@ -11,19 +8,39 @@
         alt="RollerMap logo"
       />
       <v-spacer></v-spacer>
+      <div class="hidden-xs">
+        <v-btn variant="text" @click="placesClicked">Sitios</v-btn>
+        <v-btn variant="text" @click="MyPlacesClicked">Mis sitios</v-btn>
 
-      <v-btn icon>
-        <v-icon color="purple-darken-3">mdi-magnify</v-icon>
-      </v-btn>
+        <v-menu botton left>
+          <template v-slot:activator="{ props }">
+            <v-btn icon v-bind="props">
+              <v-icon color="purple-darken-3">mdi-account-circle</v-icon>
+            </v-btn>
+          </template>
 
-      <v-btn icon>
-        <v-icon color="purple-darken-3" @click="MyPlacesClicked">mdi-heart</v-icon>
-      </v-btn>
+          <v-list>
+            <v-list-item>
+              <v-list-item-title>Editar perfil</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="store.userLogOut">
+              <v-list-item-title>Cerrar sesión</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        <v-btn icon>
+          <v-icon color="purple-darken-3">mdi-magnify</v-icon>
+        </v-btn>
 
-      <v-btn icon>
-        <v-icon color="purple-darken-3">mdi-dots-vertical</v-icon>
-      </v-btn>
+        <v-btn icon>
+          <v-icon color="purple-darken-3">mdi-heart</v-icon>
+        </v-btn>
+      </div>
+      <template v-slot:append>
+        <v-app-bar-nav-icon class="hidden-sm" color="purple-darken-3"></v-app-bar-nav-icon>
+      </template>
     </v-app-bar>
+
     <v-main>
       <v-container fluid>
         <router-view />
@@ -43,10 +60,14 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useRollerMapStore } from "./stores/store";
 
 export default defineComponent({
   name: "App",
-
+  setup() {
+    const store = useRollerMapStore();
+    return { store };
+  },
   data() {
     return {
       icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
@@ -57,6 +78,12 @@ export default defineComponent({
       let token: any = localStorage.getItem("userToken");
       if (token) {
         this.$router.push({ name: "myrollerplaces" });
+      }
+    },
+    placesClicked() {
+      let token: any = localStorage.getItem("userToken");
+      if (token) {
+        this.$router.push({ name: "rollerplaces" });
       }
     },
   },
