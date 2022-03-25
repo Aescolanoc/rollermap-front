@@ -43,6 +43,15 @@ export function register(user: object) {
   });
 }
 
+export function updateUser(userId: string, user: object) {
+  return apiToken({
+    method: "patch",
+    url: `users/${userId}`,
+    data: user,
+    headers: { Authorization: getToken() },
+  });
+}
+
 export function getAllRollerPlaces(): Promise<AxiosResponse<RollerPlace[]>> {
   return apiToken.get("/rollerplaces", { headers: { Authorization: getToken() } });
 }

@@ -8,6 +8,7 @@
 
         <v-btn :value="PlaceType.ROUTE" @click="filterChanged(PlaceType.ROUTE)"> Rutas </v-btn>
       </v-btn-toggle>
+      <v-btn @click="newPlaceClicked()">crear pista/ruta</v-btn>
     </v-col>
   </v-row>
 
@@ -17,16 +18,9 @@
     </div>
   </div>
 
-  <!-- <div class="text-center">
-    <v-pagination
-      v-model="page"
-      :length="
-        filteredRollerPlaces.length / 2 > 1
-          ? filteredRollerPlaces.length / 2
-          : 1
-      "
-    ></v-pagination>
-  </div> -->
+  <div class="text-center">
+    <v-pagination v-model="page" :length="filteredRollerPlaces.length"></v-pagination>
+  </div>
 </template>
 
 <script lang="ts">
@@ -72,6 +66,12 @@ export default defineComponent({
           return item.type === this.filter;
         });
       }
+    },
+    newPlaceClicked() {
+      this.$router.push({
+        name: "newrollerplace",
+        params: { routeId: "" },
+      });
     },
   },
 });

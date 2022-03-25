@@ -11,14 +11,16 @@ const router = createRouter({
     {
       path: "/register",
       name: "register",
-      component: () => import("../views/RegisterUserView.vue"),
-    },
-    {
-      path: "/rollerplaces/:routeId",
-      name: "details",
-      component: () => import("../views/RollerPlaceDetailsView.vue"),
+      component: () => import("../views/UserFormView.vue"),
       props: true,
     },
+    {
+      path: "/users/:userId",
+      name: "userform",
+      component: () => import("../views/UserFormView.vue"),
+      props: true,
+    },
+
     {
       path: "/",
       name: "rollerplaces",
@@ -28,6 +30,24 @@ const router = createRouter({
       path: "/myrollerplaces",
       name: "myrollerplaces",
       component: () => import("../views/MyRollerPlacesView.vue"),
+    },
+    {
+      path: "/rollerplaces/new",
+      name: "newrollerplace",
+      component: () => import("../components/RollerPlaceForm.vue"),
+      props: true,
+    },
+    {
+      path: "/rollerplaces/:routeId",
+      name: "editrollerplace",
+      component: () => import("../components/RollerPlaceForm.vue"),
+      props: true,
+    },
+    {
+      path: "/rollerplaces/:routeId",
+      name: "details",
+      component: () => import("../views/RollerPlaceDetailsView.vue"),
+      props: true,
     },
   ],
 });

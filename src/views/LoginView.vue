@@ -13,7 +13,7 @@
   </v-form>
   <v-btn @click="loginClicked()">Iniciar sesion</v-btn>
   <v-btn color="purple-darken-3" variant="text" @click="registerClicked"> Registrate aquí </v-btn>
-  <v-snackbar v-model="showError">Error al conectar con el servidor</v-snackbar>
+  <v-snackbar v-model="showError">Error al iniciar sesion, intentelo de nuevo</v-snackbar>
 </template>
 
 <script lang="ts">
@@ -45,7 +45,10 @@ export default defineComponent({
       }
     },
     registerClicked() {
-      this.$router.push({ name: "register" });
+      this.$router.push({
+        name: "register",
+        params: { userId: "registerform" },
+      });
     },
   },
 });

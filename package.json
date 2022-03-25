@@ -16,6 +16,7 @@
   "dependencies": {
     "@mdi/font": "5.9.55",
     "axios": "^0.26.1",
+    "firebase": "^9.6.10",
     "pinia": "^2.0.12",
     "roboto-fontface": "*",
     "vue": "^3.2.31",

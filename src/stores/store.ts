@@ -39,6 +39,16 @@ export const useRollerMapStore = defineStore({
       }
     },
 
+    async updateUser(userId: string, user: object) {
+      try {
+        const { data } = await api.updateUser(userId, user);
+        this.user = data;
+        router.push({ name: "rollerplaces" });
+      } catch (error) {
+        return error;
+      }
+    },
+
     async getAllRollerPlaces() {
       try {
         const { data } = await api.getAllRollerPlaces();

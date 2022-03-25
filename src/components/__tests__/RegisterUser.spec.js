@@ -4,9 +4,9 @@ import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import { createTestingPinia } from "@pinia/testing";
 import { mount } from "@vue/test-utils";
-import TestComponent from "@/components/RegisterUser.vue";
+import TestComponent from "@/components/UserForm.vue";
 
-describe("RegisterUser component", () => {
+describe("UserForm component", () => {
   const vuetify = createVuetify({ components, directives });
   const pinia = createTestingPinia();
 

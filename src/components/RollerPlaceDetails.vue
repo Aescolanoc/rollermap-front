@@ -7,6 +7,8 @@
     <p>Ciudad: {{ place.city }}</p>
     <p>slalom: ✅</p>
   </div>
+  <v-btn @click="updatePlaceClicked()">editar</v-btn>
+  <v-btn @click="deletePlaceClicked()">borrar</v-btn>
   <div>mapa</div>
 </template>
 
@@ -33,12 +35,21 @@ export default defineComponent({
     },
   },
   created() {
-    let placeFound = this.store.rollerPlaces.find(
-      (e) => e._id === this.routeId
-    );
+    let placeFound = this.store.rollerPlaces.find((e) => e._id === this.routeId);
     if (placeFound) {
       this.place = placeFound;
     }
+  },
+  methods: {
+    updatePlaceClicked() {
+      this.$router.push({
+        name: "editrollerplace",
+        params: { routeId: this.place._id },
+      });
+    },
+    deletePlaceClicked() {
+      console.log("borrar");
+    },
   },
 });
 </script>
