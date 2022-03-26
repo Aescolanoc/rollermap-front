@@ -8,7 +8,7 @@
           v-model="password"
           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
           :type="show1 ? 'text' : 'password'"
-          label="Password"
+          label="Contraseña"
           @click:append="show1 = !show1"
           required
         ></v-text-field>

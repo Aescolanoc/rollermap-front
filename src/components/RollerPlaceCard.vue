@@ -4,8 +4,6 @@
     <v-card class="roller-card" min-width="320" :elevation="isHovering ? 16 : 2" v-bind="props">
       <v-img :src="place.image" :alt="place.name" height="200px" cover></v-img>
 
-      <v-card-title class="name"> {{ place.name }} </v-card-title>
-
       <v-card-actions>
         <v-btn icon="mdi-heart" color="purple" class="favorite-button" v-if="isInFavorites" @click="favoriteClicked">
         </v-btn>

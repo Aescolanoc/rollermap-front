@@ -3,3 +3,8 @@ export enum PlaceType {
   ROUTE = "route",
   ALL = "all",
 }
+export enum PlaceLevel {
+  BEGINNER = "beginner",
+  INTERMEDIATE = "intermediate",
+  EXPERT = "expert",
+}

@@ -1,5 +1,5 @@
 export default interface RollerPlace {
-  _id: string;
+  _id?: string;
   name: string;
   description: string;
   location: Array<number>;

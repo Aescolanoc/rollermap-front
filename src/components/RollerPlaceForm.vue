@@ -1,30 +1,13 @@
 <template>
   <div>
     <v-form ref="form" v-model="valid" lazy-validation>
-      <v-text-field v-model="name" :counter="10" :rules="nameRules" label="Name" required></v-text-field>
-
-      <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-
-      <v-select
-        v-model="select"
-        :items="items"
-        :rules="[(v) => !!v || 'Item is required']"
-        label="Item"
-        required
-      ></v-select>
-
-      <v-checkbox
-        v-model="checkbox"
-        :rules="[(v) => !!v || 'You must agree to continue!']"
-        label="Do you agree?"
-        required
-      ></v-checkbox>
-
-      <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate"> Validate </v-btn>
-
-      <v-btn color="error" class="mr-4" @click="reset"> Reset Form </v-btn>
-
-      <v-btn color="warning" @click="resetValidation"> Reset Validation </v-btn>
+      <v-text-field v-model="name" :counter="10" label="Nombre" required></v-text-field>
+      <v-textarea solo v-model="description" name="description" label="Descripción" required></v-textarea>
+      <v-select v-model="SelectType" :items="type" label="Tipo" required></v-select>
+      <v-select v-model="SelectLevel" :items="level" label="Dificultad" required></v-select>
+      <v-file-input label="File input" filled prepend-icon="mdi-camera"></v-file-input>
+      <v-checkbox v-model="checkbox" label="Slalom" required></v-checkbox>
+      <v-btn :disabled="!valid" color="success" class="mr-4" @click="insertRollerPlace"> Añadir </v-btn>
     </v-form>
   </div>
 </template>
@@ -34,6 +17,7 @@ import { useRollerMapStore } from "@/stores/store";
 import { defineComponent } from "vue";
 import type { PropType } from "vue";
 import type RollerPlace from "@/types/RollerPlace";
+import { PlaceType, PlaceLevel } from "@/helpers/rollerMapEnums";
 // import { initializeApp } from "firebase/app";
 // import { getDownloadURL, getStorage, ref, uploadBytes, deleteObject } from "firebase/storage";
 // import { firebaseconfig } from "@/config";
@@ -48,14 +32,12 @@ export default defineComponent({
       place: {} as RollerPlace,
       valid: true,
       name: "",
-      nameRules: [
-        (v) => !!v || "Name is required",
-        (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
-      ],
-      email: "",
-      emailRules: [(v) => !!v || "E-mail is required", (v) => /.+@.+\..+/.test(v) || "E-mail must be valid"],
-      select: null,
-      items: ["Item 1", "Item 2", "Item 3", "Item 4"],
+
+      description: "",
+      SelectType: "pista",
+      SelectLevel: "baja",
+      type: ["pista", "ruta"],
+      level: ["baja", "intermedia", "alta"],
       checkbox: false,
     };
   },
@@ -65,23 +47,31 @@ export default defineComponent({
     },
   },
   created() {
-    let placeFound = this.store.rollerPlaces.find((e) => e._id === this.routeId);
-    if (placeFound) {
-      this.place = placeFound;
+    if (this.routeId) {
+      let placeFound = this.store.rollerPlaces.find((e) => e._id === this.routeId);
+      if (placeFound) {
+        this.place = placeFound;
+      }
+    } else {
+      this.place = {
+        name: "",
+        description: "",
+        location: [],
+        type: PlaceType.RINK,
+        slalom: false,
+        city: "",
+        image: "",
+        level: PlaceLevel.BEGINNER,
+        author: "",
+      };
     }
   },
   methods: {
     uploadPicture() {
       // console.log(import.meta.env.VITE_FIREBASE_APIKEY);
     },
-    validate() {
-      this.$refs.form.validate();
-    },
-    reset() {
-      this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
+    insertRollerPlace() {
+      console.log("hola");
     },
   },
 });

@@ -1,14 +1,14 @@
 <template>
   <div>
     <v-form @submit.prevent="registerClicked">
-      <v-text-field v-model="user.name" label="name" :placeholder="store.user.name" required></v-text-field>
+      <v-text-field v-model="user.name" label="Nombre" :placeholder="store.user.name" required></v-text-field>
       <template v-if="!userId">
         <v-text-field v-model="user.email" label="E-mail" required></v-text-field>
         <v-text-field
           v-model="user.password"
           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
           :type="show1 ? 'text' : 'password'"
-          label="Password"
+          label="Constraseña"
           @click:append="show1 = !show1"
           required
         ></v-text-field>
@@ -16,7 +16,7 @@
           v-model="password2"
           :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
           :type="show2 ? 'text' : 'password'"
-          label="Confirmar password"
+          label="Confirmar contraseña"
           @click:append="show2 = !show2"
           required
         ></v-text-field>
