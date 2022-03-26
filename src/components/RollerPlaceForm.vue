@@ -1,6 +1,18 @@
 <template>
   <div>
-    <v-form>
+    <mapbox-map
+      @click="mapClicked"
+      :accessToken="mapboxToken"
+      :center="place.location"
+      height="300px"
+      :zoom="15"
+      mapStyle="streets-v11"
+    >
+      <mapbox-navigation-control position="top-right" />
+      <mapbox-geolocate-control />
+      <mapbox-marker :lngLat="place.location" />
+    </mapbox-map>
+    <v-form class="mt-8">
       <v-text-field v-model="place.name" :counter="10" label="Nombre" required></v-text-field>
       <v-textarea solo v-model="place.description" name="description" label="Descripción" required></v-textarea>
 
@@ -26,7 +38,7 @@
 
 <script lang="ts">
 import { useRollerMapStore } from "@/stores/store";
-import { defineComponent } from "vue";
+import { defineComponent, type Events } from "vue";
 import type { PropType } from "vue";
 import type RollerPlace from "@/types/RollerPlace";
 import { PlaceType, PlaceLevel } from "@/helpers/rollerMapEnums";
@@ -44,6 +56,7 @@ export default defineComponent({
       PlaceType,
       PlaceLevel,
       place: {} as RollerPlace,
+      mapboxToken: "pk.eyJ1IjoiYWVzY29sYW5vIiwiYSI6ImNsMTgzcThjajFhNzAzaXNnbXJicmRwaTcifQ.8thc3vNfqF8E7yHLqap9PQ",
     };
   },
   props: {
@@ -61,7 +74,7 @@ export default defineComponent({
       this.place = {
         name: "",
         description: "",
-        location: [-3.68307, 40.41317],
+        location: [],
         type: PlaceType.RINK,
         slalom: false,
         city: "",
@@ -72,6 +85,12 @@ export default defineComponent({
     }
   },
   methods: {
+    mapClicked(event: any) {
+      if (event.lngLat) {
+        let loc = event.lngLat;
+        this.place.location = [loc.lng, loc.lat];
+      }
+    },
     async saveClicked() {
       if (this.routeId && this.place._id) {
         await this.store.updateRollerPlace(this.place._id, this.place);
