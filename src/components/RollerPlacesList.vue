@@ -12,7 +12,7 @@
     </v-col>
   </v-row>
 
-  <div v-if="filteredRollerPlaces.length > 1" class="d-flex flex-wrap flex-column justify-space-around flex-sm-row">
+  <div v-if="filteredRollerPlaces.length" class="d-flex flex-wrap flex-column justify-space-around flex-sm-row">
     <div v-for="item in filteredRollerPlaces" :key="item._id">
       <roller-place-card :place="item"></roller-place-card>
     </div>
