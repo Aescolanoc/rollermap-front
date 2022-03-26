@@ -48,7 +48,11 @@ export default defineComponent({
       });
     },
     deletePlaceClicked() {
-      console.log("borrar");
+      try {
+        this.store.deleteRollerPlace(this.place._id);
+      } catch (error) {
+        return error;
+      }
     },
   },
 });

@@ -70,7 +70,6 @@ export default defineComponent({
     newPlaceClicked() {
       this.$router.push({
         name: "newrollerplace",
-        params: { routeId: "" },
       });
     },
   },

@@ -77,5 +77,35 @@ export const useRollerMapStore = defineStore({
         return error;
       }
     },
+
+    async createRollerPlace(place: object) {
+      try {
+        const { data } = await api.createRollerPlace(place);
+        this.rollerPlaces = data;
+        router.push({ name: "rollerplaces" });
+      } catch (error) {
+        return error;
+      }
+    },
+
+    async updateRollerPlace(placeId: string, place: object) {
+      try {
+        const { data } = await api.updateRollerPlace(placeId, place);
+        this.rollerPlaces = data;
+        router.push({ name: "rollerplaces" });
+      } catch (error) {
+        return error;
+      }
+    },
+
+    async deleteRollerPlace(placeId: string) {
+      try {
+        const { data } = await api.deleteRollerPlace(placeId);
+        this.rollerPlaces = data;
+        router.push({ name: "rollerplaces" });
+      } catch (error) {
+        return error;
+      }
+    },
   },
 });

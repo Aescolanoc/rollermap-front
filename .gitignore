@@ -2,6 +2,7 @@
 .vscode/
 .DS_Store
 .scannerwork/
+.env
 
 # Logs
 logs

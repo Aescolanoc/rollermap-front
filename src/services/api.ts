@@ -1,12 +1,8 @@
 import type RollerPlace from "@/types/RollerPlace";
 import axios, { type AxiosResponse } from "axios";
 import { useRollerMapStore } from "@/stores/store";
+import { getToken } from "../helpers/utils";
 
-function getToken() {
-  let token: any = localStorage.getItem("userToken");
-  token = "Bearer " + JSON.parse(token);
-  return token;
-}
 const api = axios.create({
   baseURL: "http://localhost:4500",
   timeout: 20000,
@@ -67,6 +63,32 @@ export function toggleFavorites(placeId: string) {
     method: "put",
     url: `rollerplaces/favorites/${placeId}`,
     data: {},
+    headers: { Authorization: getToken() },
+  });
+}
+
+export function createRollerPlace(rollerPlace: object) {
+  return apiToken({
+    method: "post",
+    url: `rollerplaces`,
+    data: rollerPlace,
+    headers: { Authorization: getToken() },
+  });
+}
+
+export function updateRollerPlace(placeId: string, rollerPlace: object) {
+  return apiToken({
+    method: "put",
+    url: `rollerplaces/${placeId}`,
+    data: rollerPlace,
+    headers: { Authorization: getToken() },
+  });
+}
+
+export function deleteRollerPlace(placeId: string) {
+  return apiToken({
+    method: "delete",
+    url: `rollerplaces/${placeId}`,
     headers: { Authorization: getToken() },
   });
 }
