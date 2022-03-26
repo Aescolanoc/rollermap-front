@@ -3,11 +3,22 @@
     <v-form>
       <v-text-field v-model="place.name" :counter="10" label="Nombre" required></v-text-field>
       <v-textarea solo v-model="place.description" name="description" label="Descripción" required></v-textarea>
-      <v-text-field v-model="place.city" label="Nombre" required></v-text-field>
-      <v-select v-model="place.type" :items="type" label="Tipo" required></v-select>
-      <v-select v-model="place.level" :items="level" label="Dificultad" required></v-select>
+
+      <v-radio-group v-model="place.level" inline>
+        <template v-slot:label> <span class="text-body-1">Nivel:</span> </template>
+        <v-radio color="purple" label="Principiante" :value="PlaceLevel.BEGINNER"></v-radio>
+        <v-radio color="purple" label="Intermedio" :value="PlaceLevel.INTERMEDIATE"></v-radio>
+        <v-radio color="purple" label="Avanzado" :value="PlaceLevel.EXPERT"></v-radio>
+      </v-radio-group>
+      <v-text-field v-model="place.city" label="City" required></v-text-field>
+
+      <v-radio-group v-model="place.type" inline>
+        <template v-slot:label> <span class="text-body-1">Tipo:</span> </template>
+        <v-radio color="purple" label="Pista" :value="PlaceType.RINK"></v-radio>
+        <v-radio color="purple" label="Ruta" :value="PlaceType.ROUTE"></v-radio>
+      </v-radio-group>
       <v-file-input label="Añadir imagen" filled prepend-icon="mdi-camera"></v-file-input>
-      <v-checkbox v-model="place.slalom" label="Slalom" required></v-checkbox>
+      <v-switch color="purple" v-model="place.slalom" label="Se puede hacer Slalom"></v-switch>
       <v-btn color="success" class="mr-4" @click.prevent="saveClicked">{{ routeId ? "Actualizar" : "Crear" }}</v-btn>
     </v-form>
   </div>
@@ -30,9 +41,9 @@ export default defineComponent({
   },
   data() {
     return {
+      PlaceType,
+      PlaceLevel,
       place: {} as RollerPlace,
-      type: ["pista", "ruta"],
-      level: ["baja", "intermedia", "alta"],
     };
   },
   props: {
