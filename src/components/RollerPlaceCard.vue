@@ -2,7 +2,14 @@
   <p>{{ place.type }}</p>
   <v-hover v-slot="{ isHovering, props }">
     <v-card class="roller-card" min-width="320" :elevation="isHovering ? 16 : 2" v-bind="props">
-      <v-img :src="place.image" :alt="place.name" height="200px" cover></v-img>
+      <v-img :src="place.image" :alt="place.name" height="200px" cover>
+        <v-expand-transition
+          ><div v-if="isHovering" class="transition-fast-in-fast-out v-card--reveal bg-white" style="height: 100%">
+            <mapbox-map :accessToken="mapboxToken" :center="place.location" :zoom="14.5" mapStyle="streets-v11">
+              <mapbox-marker :lngLat="place.location" />
+            </mapbox-map></div
+        ></v-expand-transition>
+      </v-img>
       <v-card-title class="name"> {{ place.name }} </v-card-title>
 
       <v-card-actions>
@@ -31,13 +38,16 @@ export default defineComponent({
       required: true,
     },
   },
-
   computed: {
     isInFavorites() {
       return this.store?.user?.favorites?.includes(this.place._id);
     },
   },
-
+  data() {
+    return {
+      mapboxToken: "pk.eyJ1IjoiYWVzY29sYW5vIiwiYSI6ImNsMTgzcThjajFhNzAzaXNnbXJicmRwaTcifQ.8thc3vNfqF8E7yHLqap9PQ",
+    };
+  },
   methods: {
     favoriteClicked() {
       let placeId = this.place._id;
