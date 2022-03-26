@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { getToken } from "../helpers/utils";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,34 +23,66 @@ const router = createRouter({
     },
 
     {
-      path: "/",
-      name: "rollerplaces",
-      component: () => import("../views/RollerPlacesListView.vue"),
+      path: "/rollerplaces",
+      redirect: "/rollerplaces/all",
+      component: () => import("../views/PageLayout.vue"),
+      children: [
+        {
+          // All RollerPlaces List
+          path: "all",
+          name: "rollerplaces",
+          component: () => import("../views/RollerPlacesListView.vue"),
+        },
+        {
+          // RollerPLace Detail
+          path: ":routeId",
+          name: "details",
+          component: () => import("../views/RollerPlaceDetailsView.vue"),
+          props: true,
+        },
+      ],
     },
     {
       path: "/myrollerplaces",
-      name: "myrollerplaces",
-      component: () => import("../views/MyRollerPlacesView.vue"),
+      redirect: "/myrollerplaces/all",
+      component: () => import("../views/PageLayout.vue"),
+      children: [
+        {
+          path: "all",
+          name: "myrollerplaces",
+          component: () => import("../views/MyRollerPlacesView.vue"),
+        },
+        {
+          path: "new",
+          name: "newrollerplace",
+          component: () => import("../components/RollerPlaceForm.vue"),
+        },
+        {
+          path: "edit/:routeId",
+          name: "editrollerplace",
+          component: () => import("../components/RollerPlaceForm.vue"),
+          props: true,
+        },
+      ],
     },
-    {
-      path: "/rollerplaces/new",
-      name: "newrollerplace",
-      component: () => import("../components/RollerPlaceForm.vue"),
-      props: true,
-    },
-    {
-      path: "/rollerplaces/:routeId",
-      name: "editrollerplace",
-      component: () => import("../components/RollerPlaceForm.vue"),
-      props: true,
-    },
-    {
-      path: "/rollerplaces/:routeId",
-      name: "details",
-      component: () => import("../views/RollerPlaceDetailsView.vue"),
-      props: true,
-    },
+    // {
+    //   path: "/rollerplaces/new",
+    //   name: "newrollerplace",
+    //   component: () => import("../components/RollerPlaceForm.vue"),
+    // },
+    // {
+    //   path: "/rollerplaces/:routeId",
+    //   name: "editrollerplace",
+    //   component: () => import("../components/RollerPlaceForm.vue"),
+    //   props: true,
+    // },
   ],
+});
+
+router.beforeEach(async (to) => {
+  if (!getToken() && to.name !== "login") {
+    return { name: "login" };
+  }
 });
 
 export default router;

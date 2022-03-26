@@ -7,12 +7,9 @@
       <v-card-title class="name"> {{ place.name }} </v-card-title>
 
       <v-card-actions>
-        <v-btn icon class="yes" v-if="isInFavorites" @click="favoriteClicked">
-          <v-icon color="purple">mdi-heart</v-icon>
+        <v-btn icon="mdi-heart" color="purple" class="favorite-button" v-if="isInFavorites" @click="favoriteClicked">
         </v-btn>
-        <v-btn icon class="no" v-else @click="favoriteClicked">
-          <v-icon color="purple">mdi-heart-outline</v-icon>
-        </v-btn>
+        <v-btn icon="mdi-heart-outline" color="purple" class="favorite-button" v-else @click="favoriteClicked"> </v-btn>
         <v-spacer></v-spacer>
         <v-btn color="purple-darken-3" variant="text" @click="detailsClicked"> Ver más </v-btn>
       </v-card-actions>
