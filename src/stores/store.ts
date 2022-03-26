@@ -15,16 +15,16 @@ export const useRollerMapStore = defineStore({
   actions: {
     userLogOut() {
       this.$reset();
-      localStorage.removeItem("userToken");
-      localStorage.removeItem("userId");
+      sessionStorage.removeItem("userToken");
+      sessionStorage.removeItem("userId");
       router.push({ name: "login" });
     },
 
     async login(user: object) {
       try {
         const { data } = await api.login(user);
-        localStorage.setItem("userToken", JSON.stringify(data.token));
-        localStorage.setItem("userId", JSON.stringify(data._id));
+        sessionStorage.setItem("userToken", JSON.stringify(data.token));
+        sessionStorage.setItem("userId", JSON.stringify(data._id));
         this.user = data;
         return this.user;
       } catch (error: any) {

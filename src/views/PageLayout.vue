@@ -67,19 +67,19 @@ export default defineComponent({
 
   methods: {
     MyPlacesClicked() {
-      let token: string | null = localStorage.getItem("userToken");
+      let token: string | null = sessionStorage.getItem("userToken");
       if (token) {
         this.$router.push({ name: "myrollerplaces" });
       }
     },
     placesClicked() {
-      let token: string | null = localStorage.getItem("userToken");
+      let token: string | null = sessionStorage.getItem("userToken");
       if (token) {
         this.$router.push({ name: "rollerplaces" });
       }
     },
     profileClicked() {
-      let token: string | null = localStorage.getItem("userToken");
+      let token: string | null = sessionStorage.getItem("userToken");
       if (token) {
         this.$router.push({
           name: "userform",

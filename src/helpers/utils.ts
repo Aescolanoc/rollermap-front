@@ -1,5 +1,5 @@
 export function getToken(): string | boolean {
-  let token: string | null = localStorage.getItem("userToken");
+  let token: string | null = sessionStorage.getItem("userToken");
   if (token) {
     token = "Bearer " + JSON.parse(token);
     return token;
@@ -9,7 +9,7 @@ export function getToken(): string | boolean {
 }
 
 export function getUserId(): string | boolean {
-  const userId: string | null = localStorage.getItem("userId");
+  const userId: string | null = sessionStorage.getItem("userId");
   if (userId) {
     return JSON.parse(userId);
   } else {
