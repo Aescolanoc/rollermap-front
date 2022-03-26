@@ -49,7 +49,11 @@
       </template>
     </v-app-bar>
     <v-container fluid>
-      <router-view></router-view>
+      <router-view v-slot="{ Component }">
+        <transition name="fade-transform" mode="out-in">
+          <component :is="Component"></component>
+        </transition>
+      </router-view>
     </v-container>
   </v-main>
 </template>
