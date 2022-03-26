@@ -94,8 +94,8 @@ export const useRollerMapStore = defineStore({
     async createRollerPlace(place: object) {
       try {
         const { data } = await api.createRollerPlace(place);
-        this.rollerPlaces = data;
-        router.push({ name: "rollerplaces" });
+        this.rollerPlaces.push(data);
+        router.push({ name: "details", params: { routeId: data._id } });
       } catch (error) {
         return error;
       }
@@ -103,9 +103,8 @@ export const useRollerMapStore = defineStore({
 
     async updateRollerPlace(placeId: string, place: object) {
       try {
-        const { data } = await api.updateRollerPlace(placeId, place);
-        this.rollerPlaces = data;
-        router.push({ name: "rollerplaces" });
+        await api.updateRollerPlace(placeId, place);
+        router.push({ name: "details", params: { routeId: placeId } });
       } catch (error) {
         return error;
       }
@@ -113,8 +112,7 @@ export const useRollerMapStore = defineStore({
 
     async deleteRollerPlace(placeId: string) {
       try {
-        const { data } = await api.deleteRollerPlace(placeId);
-        this.rollerPlaces = data;
+        await api.deleteRollerPlace(placeId);
         router.push({ name: "rollerplaces" });
       } catch (error) {
         return error;

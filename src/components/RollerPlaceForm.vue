@@ -1,13 +1,14 @@
 <template>
   <div>
-    <v-form ref="form" v-model="valid" lazy-validation>
-      <v-text-field v-model="name" :counter="10" label="Nombre" required></v-text-field>
-      <v-textarea solo v-model="description" name="description" label="Descripción" required></v-textarea>
-      <v-select v-model="SelectType" :items="type" label="Tipo" required></v-select>
-      <v-select v-model="SelectLevel" :items="level" label="Dificultad" required></v-select>
-      <v-file-input label="File input" filled prepend-icon="mdi-camera"></v-file-input>
-      <v-checkbox v-model="checkbox" label="Slalom" required></v-checkbox>
-      <v-btn :disabled="!valid" color="success" class="mr-4" @click="insertRollerPlace"> Añadir </v-btn>
+    <v-form>
+      <v-text-field v-model="place.name" :counter="10" label="Nombre" required></v-text-field>
+      <v-textarea solo v-model="place.description" name="description" label="Descripción" required></v-textarea>
+      <v-text-field v-model="place.city" label="Nombre" required></v-text-field>
+      <v-select v-model="place.type" :items="type" label="Tipo" required></v-select>
+      <v-select v-model="place.level" :items="level" label="Dificultad" required></v-select>
+      <v-file-input label="Añadir imagen" filled prepend-icon="mdi-camera"></v-file-input>
+      <v-checkbox v-model="place.slalom" label="Slalom" required></v-checkbox>
+      <v-btn color="success" class="mr-4" @click.prevent="saveClicked">{{ routeId ? "Actualizar" : "Crear" }}</v-btn>
     </v-form>
   </div>
 </template>
@@ -30,15 +31,8 @@ export default defineComponent({
   data() {
     return {
       place: {} as RollerPlace,
-      valid: true,
-      name: "",
-
-      description: "",
-      SelectType: "pista",
-      SelectLevel: "baja",
       type: ["pista", "ruta"],
       level: ["baja", "intermedia", "alta"],
-      checkbox: false,
     };
   },
   props: {
@@ -56,22 +50,23 @@ export default defineComponent({
       this.place = {
         name: "",
         description: "",
-        location: [],
+        location: [-3.68307, 40.41317],
         type: PlaceType.RINK,
         slalom: false,
         city: "",
-        image: "",
+        image: "https://i.imgur.com/dsz1dCN.png",
         level: PlaceLevel.BEGINNER,
-        author: "",
+        author: this.store.user._id,
       };
     }
   },
   methods: {
-    uploadPicture() {
-      // console.log(import.meta.env.VITE_FIREBASE_APIKEY);
-    },
-    insertRollerPlace() {
-      console.log("hola");
+    async saveClicked() {
+      if (this.routeId && this.place._id) {
+        await this.store.updateRollerPlace(this.place._id, this.place);
+      } else {
+        await this.store.createRollerPlace(this.place);
+      }
     },
   },
 });
