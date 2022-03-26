@@ -16,7 +16,6 @@ export default defineComponent({
   props: {
     userId: {
       type: String as PropType<string>,
-      required: true,
     },
   },
 });

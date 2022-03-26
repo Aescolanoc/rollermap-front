@@ -17,8 +17,7 @@
         <v-menu botton left>
           <template v-slot:activator="{ props }">
             <v-btn icon v-bind="props">
-              <v-icon v-if="store.user.name" color="purple-darken-3">mdi-account-circle</v-icon>
-              <v-icon v-else color="purple-darken-3">mdi-account-circle-outline</v-icon>
+              <v-icon color="purple-darken-3">mdi-account-circle</v-icon>
             </v-btn>
           </template>
 

@@ -51,7 +51,6 @@ export default defineComponent({
     registerClicked() {
       this.$router.push({
         name: "register",
-        params: { userId: "registerform" },
       });
     },
   },

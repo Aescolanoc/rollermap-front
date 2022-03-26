@@ -13,7 +13,6 @@ const router = createRouter({
       path: "/register",
       name: "register",
       component: () => import("../views/UserFormView.vue"),
-      props: true,
     },
     {
       path: "/users/:userId",
@@ -80,7 +79,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
-  if (!getToken() && to.name !== "login") {
+  if (!getToken() && to.name !== "login" && to.name !== "register") {
     return { name: "login" };
   }
 });

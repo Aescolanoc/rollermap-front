@@ -16,6 +16,7 @@ export const useRollerMapStore = defineStore({
     userLogOut() {
       this.$reset();
       localStorage.removeItem("userToken");
+      localStorage.removeItem("userId");
       router.push({ name: "login" });
     },
 
@@ -23,6 +24,7 @@ export const useRollerMapStore = defineStore({
       try {
         const { data } = await api.login(user);
         localStorage.setItem("userToken", JSON.stringify(data.token));
+        localStorage.setItem("userId", JSON.stringify(data._id));
         this.user = data;
         return this.user;
       } catch (error: any) {
@@ -34,6 +36,17 @@ export const useRollerMapStore = defineStore({
       try {
         const { data } = await api.register(user);
         this.user = data;
+        return data;
+      } catch (error) {
+        return error;
+      }
+    },
+
+    async getUserDetails(userId: string) {
+      try {
+        const { data } = await api.getUserDetails(userId);
+        this.user = data;
+        return data;
       } catch (error) {
         return error;
       }

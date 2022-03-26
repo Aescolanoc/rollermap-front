@@ -39,6 +39,14 @@ export function register(user: object) {
   });
 }
 
+export function getUserDetails(userId: string) {
+  return apiToken({
+    method: "get",
+    url: `users/${userId}`,
+    headers: { Authorization: getToken() },
+  });
+}
+
 export function updateUser(userId: string, user: object) {
   return apiToken({
     method: "patch",

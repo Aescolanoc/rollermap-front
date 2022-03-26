@@ -2,30 +2,30 @@
   <div>
     <v-form @submit.prevent="registerClicked">
       <v-text-field v-model="user.name" label="name" :placeholder="store.user.name" required></v-text-field>
-      <v-text-field v-if="userId !== store.user._id" v-model="user.email" label="E-mail" required></v-text-field>
-      <v-text-field
-        v-if="userId !== store.user._id"
-        v-model="user.password"
-        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-        :type="show1 ? 'text' : 'password'"
-        label="Password"
-        @click:append="show1 = !show1"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-if="userId !== store.user._id"
-        v-model="password2"
-        :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-        :type="show2 ? 'text' : 'password'"
-        label="Confirmar password"
-        @click:append="show2 = !show2"
-        required
-      ></v-text-field>
-      <div v-if="userId !== store.user._id" class="d-flex justify-center align-center">
-        <v-checkbox v-model="checkbox" :label="checkboxLabel"></v-checkbox>
-      </div>
+      <template v-if="!userId">
+        <v-text-field v-model="user.email" label="E-mail" required></v-text-field>
+        <v-text-field
+          v-model="user.password"
+          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="show1 ? 'text' : 'password'"
+          label="Password"
+          @click:append="show1 = !show1"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="password2"
+          :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="show2 ? 'text' : 'password'"
+          label="Confirmar password"
+          @click:append="show2 = !show2"
+          required
+        ></v-text-field>
+        <div class="d-flex justify-center align-center">
+          <v-checkbox v-model="checkbox" :label="checkboxLabel"></v-checkbox>
+        </div>
+      </template>
     </v-form>
-    <v-btn v-if="userId === store.user._id" @click="updateClicked()">Confirmar</v-btn>
+    <v-btn v-if="userId" @click="updateClicked()">Confirmar</v-btn>
     <v-btn v-else @click="registerClicked()">Registro</v-btn>
     <v-snackbar v-model="showError">{{ errorMessage }}</v-snackbar>
   </div>
@@ -64,7 +64,7 @@ export default defineComponent({
     },
   },
   methods: {
-    registerClicked() {
+    async registerClicked() {
       if (this.checkbox === true) {
         if (this.user.password === this.password2) {
           if (this.user.name !== "" && this.user.email !== "") {
@@ -74,7 +74,7 @@ export default defineComponent({
               password: this.user.password,
             };
 
-            this.store.register(newUser);
+            await this.store.register(newUser);
             this.$router.push({ name: "login" });
           }
           this.showError = true;

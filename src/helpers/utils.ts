@@ -7,3 +7,12 @@ export function getToken(): string | boolean {
     return false;
   }
 }
+
+export function getUserId(): string | boolean {
+  const userId: string | null = localStorage.getItem("userId");
+  if (userId) {
+    return JSON.parse(userId);
+  } else {
+    return false;
+  }
+}

@@ -14,15 +14,29 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { getUserId } from "./helpers/utils";
+import { useRollerMapStore } from "./stores/store";
 
 export default defineComponent({
   setup() {
-    return {};
+    const store = useRollerMapStore();
+    return { store };
   },
   data() {
     return {
       icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
     };
+  },
+  created() {
+    this.checkUser();
+  },
+  methods: {
+    checkUser() {
+      const userId = getUserId();
+      if (userId && !this.store.user?._id && typeof userId === "string") {
+        this.store.getUserDetails(userId);
+      }
+    },
   },
 });
 </script>
