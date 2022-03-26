@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import { useRollerMapStore } from "@/stores/store";
-import { defineComponent, type Events } from "vue";
+import { defineComponent } from "vue";
 import type { PropType } from "vue";
 import type RollerPlace from "@/types/RollerPlace";
 import { PlaceType, PlaceLevel } from "@/helpers/rollerMapEnums";
