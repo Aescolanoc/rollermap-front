@@ -1,7 +1,6 @@
 <template>
-  <p>{{ place.type }}</p>
   <v-hover v-slot="{ isHovering, props }">
-    <v-card class="roller-card" min-width="320" :elevation="isHovering ? 16 : 2" v-bind="props">
+    <v-card class="roller-card" min-width="320" :elevation="isHovering ? 16 : 6" v-bind="props">
       <v-img :src="place.image" :alt="place.name" height="200px" cover>
         <v-expand-transition
           ><div v-if="isHovering" class="transition-fast-in-fast-out v-card--reveal bg-white" style="height: 100%">
@@ -14,9 +13,26 @@
       <v-card-title class="name"> {{ place.name }} </v-card-title>
 
       <v-card-actions>
-        <v-btn icon="mdi-heart" color="purple" class="favorite-button" v-if="isInFavorites" @click="favoriteClicked">
+        <v-btn
+          icon="mdi-heart"
+          color="purple"
+          class="roller-card_favorite-button elevation-1"
+          v-if="isInFavorites"
+          @click="favoriteClicked"
+        >
         </v-btn>
-        <v-btn icon="mdi-heart-outline" color="purple" class="favorite-button" v-else @click="favoriteClicked"> </v-btn>
+        <v-btn
+          icon="mdi-heart-outline"
+          color="purple"
+          class="roller-card_favorite-button elevation-1"
+          v-else
+          @click="favoriteClicked"
+        >
+        </v-btn>
+        <v-chip label :color="isRink ? 'cyan-darken-2' : 'red-darken-1'">
+          <v-icon left icon="mdi-rollerblade"></v-icon>
+          {{ isRink ? "Pista" : "Ruta" }}
+        </v-chip>
         <v-spacer></v-spacer>
         <v-btn color="purple-darken-3" variant="text" @click="detailsClicked"> Ver más </v-btn>
       </v-card-actions>
@@ -27,6 +43,8 @@
 <script lang="ts">
 import { useRollerMapStore } from "@/stores/store";
 import { defineComponent } from "vue";
+import { mapBoxConfig } from "@/config";
+import { PlaceType } from "@/helpers/rollerMapEnums";
 
 export default defineComponent({
   setup() {
@@ -43,10 +61,14 @@ export default defineComponent({
     isInFavorites() {
       return this.store?.user?.favorites?.includes(this.place._id);
     },
+    isRink() {
+      return this.place.type === PlaceType.RINK;
+    },
   },
   data() {
     return {
-      mapboxToken: "pk.eyJ1IjoiYWVzY29sYW5vIiwiYSI6ImNsMTgzcThjajFhNzAzaXNnbXJicmRwaTcifQ.8thc3vNfqF8E7yHLqap9PQ",
+      mapboxToken: mapBoxConfig.token,
+      PlaceType,
     };
   },
   methods: {
@@ -68,5 +90,11 @@ export default defineComponent({
 .roller-card {
   margin-bottom: 24px;
   cursor: pointer;
+}
+.roller-card_favorite-button {
+  position: absolute;
+  bottom: 78px;
+  right: 20px;
+  background-color: white;
 }
 </style>

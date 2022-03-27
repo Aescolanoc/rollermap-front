@@ -29,13 +29,13 @@
           required
         ></v-text-field>
         <div class="d-flex justify-center align-center">
-          <v-checkbox color="deep-purple accent-3" v-model="checkbox" :label="checkboxLabel"></v-checkbox>
+          <v-checkbox color="deep-purple" v-model="checkbox" :label="checkboxLabel"></v-checkbox>
         </div>
       </template>
     </v-form>
     <div class="user-form_buttons mb-8">
-      <v-btn v-if="userId" color="deep-purple accent-3" @click="updateClicked()">Confirmar</v-btn>
-      <v-btn v-else color="deep-purple accent-3" @click="registerClicked()">Registro</v-btn>
+      <v-btn v-if="userId" color="deep-purple" @click="updateClicked()">Confirmar</v-btn>
+      <v-btn v-else color="deep-purple" @click="registerClicked()">Registro</v-btn>
     </div>
 
     <v-snackbar v-model="showError">{{ errorMessage }}</v-snackbar>

@@ -4,12 +4,19 @@
       <v-card class="mx-auto">
         <v-img class="align-end text-white" height="200" :src="place.image" cover> </v-img>
         <v-card-text>
-          <v-card-title class="name"> {{ place.name }} </v-card-title>
+          <v-card-title class="name font-weight-bold"> {{ place.name }} </v-card-title>
 
-          <div class="description">Descripción: {{ place.description }}</div>
-          <div>Dificultad: {{ place.level }}</div>
-          <div>Ciudad: {{ place.city }}</div>
-          <div>Slalom: {{ place.slalom }}</div>
+          <div class="description font-weight-bold">Descripción:</div>
+          <p class="text-left text-body-1">{{ place.description }}</p>
+          <div class="font-weight-bold">Dificultad:</div>
+          <p>{{ place.level }}</p>
+          <div class="font-weight-bold">Ciudad:</div>
+          <p>{{ place.city }}</p>
+          <div class="font-weight-bold">
+            Slalom:
+            <v-icon v-if="place.slalom" color="green">mdi-rollerblade</v-icon>
+            <v-icon v-else color="red">mdi-roller-skate-off</v-icon>
+          </div>
         </v-card-text>
 
         <v-card-actions v-if="isAuthor">
@@ -22,7 +29,6 @@
       <mapbox-map :accessToken="mapboxToken" :center="place.location" :zoom="15" mapStyle="streets-v11">
         <mapbox-navigation-control position="top-right" />
         <mapbox-geolocate-control />
-
         <mapbox-marker :lngLat="place.location" />
       </mapbox-map>
     </v-col>
@@ -34,6 +40,7 @@ import { defineComponent } from "vue";
 import { useRollerMapStore } from "@/stores/store";
 import type { PropType } from "vue";
 import type RollerPlace from "@/types/RollerPlace";
+import { mapBoxConfig } from "@/config";
 
 export default defineComponent({
   setup() {
@@ -48,7 +55,7 @@ export default defineComponent({
   data() {
     return {
       place: {} as RollerPlace,
-      mapboxToken: "pk.eyJ1IjoiYWVzY29sYW5vIiwiYSI6ImNsMTgzcThjajFhNzAzaXNnbXJicmRwaTcifQ.8thc3vNfqF8E7yHLqap9PQ",
+      mapboxToken: mapBoxConfig.token,
     };
   },
   props: {

@@ -2,7 +2,14 @@
   <v-row>
     <v-col cols="12" class="py-12">
       <roller-filter @filtered="filterChanged"></roller-filter>
-      <v-btn @click="newPlaceClicked()">crear pista/ruta</v-btn>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ props }">
+          <v-btn icon color="deep-purple" class="ml-8" v-bind="props" @click="newPlaceClicked()">
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
+        </template>
+        <span>Crear Pista</span>
+      </v-tooltip>
     </v-col>
   </v-row>
 

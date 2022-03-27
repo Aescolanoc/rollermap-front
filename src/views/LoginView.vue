@@ -21,7 +21,7 @@
             ></v-text-field>
           </v-form>
           <div class="login-buttons">
-            <v-btn color="deep-purple accent-3" @click="loginClicked()">Iniciar sesion</v-btn>
+            <v-btn color="deep-purple" @click="loginClicked()">Iniciar sesion</v-btn>
             <v-btn color="purple-darken-3" variant="text" @click="registerClicked"> Registrate aquí </v-btn>
           </div>
         </div>

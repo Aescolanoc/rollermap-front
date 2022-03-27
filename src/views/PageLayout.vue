@@ -11,16 +11,12 @@
       <v-spacer></v-spacer>
 
       <div class="hidden-xs">
-        <v-btn variant="text" @click="placesClicked">Sitios</v-btn>
-        <v-btn variant="text" @click="MyPlacesClicked">Mis sitios</v-btn>
-
-        <v-menu botton left>
+        <v-menu botton>
           <template v-slot:activator="{ props }">
             <v-btn icon v-bind="props">
               <v-icon color="purple-darken-3">mdi-account-circle</v-icon>
             </v-btn>
           </template>
-
           <v-list v-if="store.user">
             <v-list-item v-if="store.user.name">
               <v-list-item-title>{{ store.user.name }}</v-list-item-title>
@@ -33,13 +29,16 @@
             </v-list-item>
           </v-list>
         </v-menu>
-        <v-btn icon>
+
+        <v-btn variant="text" color="purple-darken-3" @click="placesClicked">Sitios</v-btn>
+        <v-btn variant="text" color="purple-darken-3" @click="MyPlacesClicked">Mis sitios</v-btn>
+        <!-- <v-btn icon>
           <v-icon color="purple-darken-3">mdi-magnify</v-icon>
         </v-btn>
 
         <v-btn icon>
           <v-icon color="purple-darken-3">mdi-heart</v-icon>
-        </v-btn>
+        </v-btn> -->
       </div>
 
       <template v-slot:append>

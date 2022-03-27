@@ -1,5 +1,5 @@
 <template>
-  <v-btn-toggle v-model="filter" tile color="deep-purple accent-3" group rounded :mandatory="true">
+  <v-btn-toggle v-model="filter" tile color="deep-purple" group rounded :mandatory="true">
     <v-btn :value="PlaceType.ALL" @click="filterChanged(PlaceType.ALL)"> Todas </v-btn>
     <v-btn :value="PlaceType.RINK" @click="filterChanged(PlaceType.RINK)"> Pistas </v-btn>
     <v-btn :value="PlaceType.ROUTE" @click="filterChanged(PlaceType.ROUTE)"> Rutas </v-btn>
