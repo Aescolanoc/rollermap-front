@@ -74,7 +74,7 @@ export default defineComponent({
       this.place = {
         name: "",
         description: "",
-        location: [],
+        location: [-3.703339, 40.416729],
         type: PlaceType.RINK,
         slalom: false,
         city: "",
