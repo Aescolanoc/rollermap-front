@@ -6,7 +6,7 @@
         <v-card-text>
           <v-card-title class="name"> {{ place.name }} </v-card-title>
 
-          <div>Descripción: {{ place.description }}</div>
+          <div class="description">Descripción: {{ place.description }}</div>
           <div>Dificultad: {{ place.level }}</div>
           <div>Ciudad: {{ place.city }}</div>
           <div>Slalom: {{ place.slalom }}</div>

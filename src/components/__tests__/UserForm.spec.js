@@ -19,14 +19,16 @@ describe("UserForm component", () => {
     expect(wrapper).toBeTruthy();
   });
 
-  it("A button is rendered", () => {
+  it("shows 'Register' button", () => {
     const wrapper = mount(TestComponent, {
       global: {
         plugins: [vuetify, pinia],
       },
     });
+
     expect(wrapper.text()).toContain("Registro");
-    // expect(wrapper.find("div")).toBeTruthy();
-    // expect(wrapper.find("button")).toBeTruthy();
+
+    const element = wrapper.get(".v-btn.v-btn--elevated");
+    expect(element.text()).toEqual("Registro");
   });
 });

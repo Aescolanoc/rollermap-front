@@ -7,8 +7,9 @@
           ><div v-if="isHovering" class="transition-fast-in-fast-out v-card--reveal bg-white" style="height: 100%">
             <mapbox-map :accessToken="mapboxToken" :center="place.location" :zoom="14.5" mapStyle="streets-v11">
               <mapbox-marker :lngLat="place.location" />
-            </mapbox-map></div
-        ></v-expand-transition>
+            </mapbox-map>
+          </div>
+        </v-expand-transition>
       </v-img>
       <v-card-title class="name"> {{ place.name }} </v-card-title>
 

@@ -14,7 +14,7 @@ export default defineConfig({
     {
       name: "vitest-plugin-beforeall",
       config: () => ({
-        test: { setupFiles: ["./src/beforeAll.js"] },
+        test: { setupFiles: ["./src/beforeAll.ts"] },
       }),
     },
   ],

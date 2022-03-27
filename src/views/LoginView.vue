@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row>
         <v-col cols="6">
-          <div>Login</div>
+          <h1>Iniciar Sesión</h1>
           <v-form @submit.prevent="loginClicked">
             <v-text-field v-model="email" label="E-mail" required></v-text-field>
             <v-text-field

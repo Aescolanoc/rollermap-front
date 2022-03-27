@@ -9,10 +9,11 @@ import TestComponent from "@/components/RollerPlaceCard.vue";
 describe("RollerPlaceCard component", () => {
   const vuetify = createVuetify({ components, directives });
   const pinia = createTestingPinia();
+
   let placeObj = {
     _id: "622fb6522ce112a7ddb0c657",
-    name: "Paseo de coches - Retiro ",
-    desciption: "Pista muy popular entre los rollers",
+    name: "Paseo de coches - Retiro",
+    description: "Pista muy popular entre los rollers",
     location: [-3.68307, 40.41317],
     type: "pista",
     slalom: true,
@@ -22,24 +23,37 @@ describe("RollerPlaceCard component", () => {
     author: "622f68740b2fa7a2b155e403",
   };
 
+  const stubs = {
+    MapboxMap: {
+      template: "<div/>",
+    },
+    MapboxMarker: {
+      template: "<div/>",
+    },
+  };
+
   it("renders properly", () => {
     const wrapper = mount(TestComponent, {
       global: {
         plugins: [vuetify, pinia],
+        stubs: stubs,
       },
       props: { place: placeObj },
     });
     expect(wrapper).toBeTruthy();
   });
 
-  it("A button is rendered", () => {
+  it("shows a title", () => {
     const wrapper = mount(TestComponent, {
       global: {
         plugins: [vuetify, pinia],
+        stubs: stubs,
       },
       props: { place: placeObj },
     });
-    expect(wrapper.text()).toContain("");
+
+    const element = wrapper.get(".v-card-title.name");
+    expect(element.text()).toEqual("Paseo de coches - Retiro");
   });
 
   // it("When favorite button is clicked", async () => {
