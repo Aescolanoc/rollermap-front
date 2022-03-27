@@ -44,7 +44,7 @@
         :error="wrongFileSize"
       ></v-file-input>
       <p v-if="wrongFileSize" class="text-center">Solo se permiten imágenes hasta 5mb</p>
-      <img class="rollerplace-form_image" v-if="place.image?.length" :src="place.image" />
+      <img class="rollerplace-form_image" v-if="place.image?.length" :src="place.image" alt="Previsualización imagen" />
       <v-switch color="purple" v-model="place.slalom" label="Se puede hacer Slalom"></v-switch>
       <v-btn color="success" class="mr-4" @click.prevent="saveClicked">{{ routeId ? "Actualizar" : "Crear" }}</v-btn>
     </v-form>
