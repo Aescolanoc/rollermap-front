@@ -1,16 +1,26 @@
 <template>
-  <v-app>
+  <v-app class="app-wrapper">
     <router-view v-slot="{ Component }">
       <transition name="fade-transform" mode="out-in">
         <component :is="Component"></component>
       </transition>
     </router-view>
 
-    <v-footer class="bg-indigo-lighten-1 text-white text-center d-flex flex-column">
+    <v-footer class="bg-grey-darken-4 text-white text-center d-flex flex-column app-wrapper_footer">
       <div>
-        <v-btn v-for="icon in icons" :key="icon" class="mx-4 text-white" :icon="icon" variant="text"></v-btn>
+        <v-btn
+          class="mx-4 text-white"
+          icon="mdi-linkedin"
+          variant="text"
+          @click.prevent="socialClicked('linkedIn')"
+        ></v-btn>
+        <v-btn
+          class="mx-4 text-white"
+          icon="mdi-github"
+          variant="text"
+          @click.prevent="socialClicked('gitHub')"
+        ></v-btn>
       </div>
-
       <div class="text-white">{{ new Date().getFullYear() }} — Made with 🛼 by Mel</div>
     </v-footer>
   </v-app>
@@ -26,11 +36,6 @@ export default defineComponent({
     const store = useRollerMapStore();
     return { store };
   },
-  data() {
-    return {
-      icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
-    };
-  },
   created() {
     this.checkUser();
   },
@@ -41,24 +46,57 @@ export default defineComponent({
         this.store.getUserDetails(userId);
       }
     },
+    socialClicked(socialMedia: string) {
+      switch (socialMedia) {
+        case "linkedIn":
+          window.open("https://www.linkedin.com/in/amalia-escolano/", "_blank");
+          break;
+        case "gitHub":
+          window.open("https://github.com/aescolanoc", "_blank");
+          break;
+        default:
+          break;
+      }
+    },
   },
 });
 </script>
 
 <style lang="scss">
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 html,
 body {
   min-height: 100vh;
 }
+
+.app-wrapper {
+  min-height: 100vh;
+
+  .app-wrapper_footer {
+    max-height: 88px;
+  }
+}
+
 .fade-transform-leave-active,
 .fade-transform-enter-active {
   transition: all 0.5s;
 }
+
 .fade-transform-enter,
 .fade-transform-enter-from {
   opacity: 0;
   transform: translateX(30px);
 }
+
 .fade-transform-leave-to {
   opacity: 0;
   transform: translateX(-30px);
