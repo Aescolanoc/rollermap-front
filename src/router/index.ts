@@ -14,11 +14,19 @@ const router = createRouter({
       name: "register",
       component: () => import("../views/UserFormView.vue"),
     },
+
     {
-      path: "/users/:userId",
-      name: "userform",
-      component: () => import("../views/UserFormView.vue"),
-      props: true,
+      path: "/users",
+      redirect: "/users/:userId",
+      component: () => import("../views/PageLayout.vue"),
+      children: [
+        {
+          path: ":userId",
+          name: "userform",
+          component: () => import("../views/UserFormView.vue"),
+          props: true,
+        },
+      ],
     },
 
     {
