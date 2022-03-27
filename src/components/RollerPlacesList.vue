@@ -1,13 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" class="py-12">
-      <v-btn-toggle v-model="filter" tile color="deep-purple accent-3" group rounded :mandatory="true">
-        <v-btn :value="PlaceType.ALL" @click="filterChanged(PlaceType.ALL)"> Todas </v-btn>
-
-        <v-btn :value="PlaceType.RINK" @click="filterChanged(PlaceType.RINK)"> Pistas </v-btn>
-
-        <v-btn :value="PlaceType.ROUTE" @click="filterChanged(PlaceType.ROUTE)"> Rutas </v-btn>
-      </v-btn-toggle>
+      <roller-filter @filtered="filterChanged"></roller-filter>
       <v-btn @click="newPlaceClicked()">crear pista/ruta</v-btn>
     </v-col>
   </v-row>
@@ -17,8 +11,9 @@
       <roller-place-card :place="item"></roller-place-card>
     </div>
   </div>
-  <div v-else>
-    <img src="../assets/img/no_rollerplaces.png" alt="No hay pistas que mostrar" />
+  <div v-else class="list-noplaces">
+    <img class="List-noplaces__image" src="../assets/img/no_rollerplaces.png" alt="No hay pistas que mostrar" />
+    <p>No hay contenido para mostrar</p>
   </div>
 
   <div class="text-center">
@@ -32,6 +27,7 @@ import RollerPlaceCard from "./RollerPlaceCard.vue";
 import { defineComponent } from "vue";
 import { PlaceType } from "@/helpers/rollerMapEnums";
 import type RollerPlace from "@/types/RollerPlace";
+import RollerFilter from "./RollerFilter.vue";
 
 export default defineComponent({
   setup() {
@@ -40,6 +36,7 @@ export default defineComponent({
   },
   components: {
     RollerPlaceCard,
+    RollerFilter,
   },
   data() {
     return {
@@ -78,3 +75,18 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss">
+.list-noplaces {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  .List-noplaces__image {
+    height: 300px;
+    opacity: 0.3;
+  }
+}
+</style>
