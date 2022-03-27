@@ -1,6 +1,14 @@
 <template>
-  <div>
+  <div class="user-form mt-8">
     <v-form @submit.prevent="registerClicked">
+      <img
+        v-if="!userId"
+        class="login-logo"
+        src="../assets/img/login-logo.png"
+        alt="RollerMap logo"
+        srcset="../assets/img/login-logo.png 1x, ../assets/img/login-logo@2x.png 2x"
+      />
+      <h3 v-else>Editar perfil de {{ store.user.name }}</h3>
       <v-text-field v-model="user.name" label="Nombre" :placeholder="store.user.name" required></v-text-field>
       <template v-if="!userId">
         <v-text-field v-model="user.email" label="E-mail" required></v-text-field>
@@ -21,12 +29,15 @@
           required
         ></v-text-field>
         <div class="d-flex justify-center align-center">
-          <v-checkbox v-model="checkbox" :label="checkboxLabel"></v-checkbox>
+          <v-checkbox color="deep-purple accent-3" v-model="checkbox" :label="checkboxLabel"></v-checkbox>
         </div>
       </template>
     </v-form>
-    <v-btn v-if="userId" @click="updateClicked()">Confirmar</v-btn>
-    <v-btn v-else @click="registerClicked()">Registro</v-btn>
+    <div class="user-form_buttons mb-8">
+      <v-btn v-if="userId" color="deep-purple accent-3" @click="updateClicked()">Confirmar</v-btn>
+      <v-btn v-else color="deep-purple accent-3" @click="registerClicked()">Registro</v-btn>
+    </div>
+
     <v-snackbar v-model="showError">{{ errorMessage }}</v-snackbar>
   </div>
 </template>
@@ -50,7 +61,7 @@ export default defineComponent({
         password: "",
       },
       password2: "",
-      checkboxLabel: "Acepto que he leído y comprendido los siguientes Términos y Condiciones de Uso",
+      checkboxLabel: "Acepto los Términos y Condiciones de Uso",
       checkbox: false,
 
       show1: false,
@@ -98,3 +109,21 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss">
+.user-form {
+  width: 400px;
+  margin: 0 auto;
+  display: block;
+
+  .login-logo {
+    margin-bottom: 20px;
+    width: 350px;
+    height: auto;
+    display: block;
+  }
+  .user-form_buttons {
+    text-align: center;
+  }
+}
+</style>
