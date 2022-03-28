@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
@@ -32,18 +32,22 @@ describe("RollerPlaceCard component", () => {
     },
   };
 
-  it("renders properly", () => {
+  it("RollerPlaceCard component renders properly", () => {
+    let isRinkMock = vi.fn();
     const wrapper = mount(TestComponent, {
       global: {
         plugins: [vuetify, pinia],
         stubs: stubs,
       },
       props: { place: placeObj },
+      methods: {
+        isRink: isRinkMock,
+      },
     });
     expect(wrapper).toBeTruthy();
   });
 
-  it("shows a title", () => {
+  it("RollerPlaceCard component shows a title", () => {
     const wrapper = mount(TestComponent, {
       global: {
         plugins: [vuetify, pinia],
@@ -56,24 +60,39 @@ describe("RollerPlaceCard component", () => {
     expect(element.text()).toEqual("Paseo de coches - Retiro");
   });
 
-  // it("When favorite button is clicked", async () => {
-  //   // const mockFavorite = vi.fn().mockImplementation();
-  //   const wrapper = mount(TestComponent, {
-  //     global: {
-  //       plugins: [vuetify, pinia],
-  //     },
-  //     props: { place: placeObj },
-  //   });
+  it("'when 'favorite' icon is clicked favoriteClicked function is called", () => {
+    const wrapper = mount(TestComponent, {
+      global: {
+        plugins: [vuetify, pinia],
+      },
+      props: { place: placeObj },
+    });
 
-  //   expect(wrapper.classes("yes")).trigger("click");
-  //   // const button = wrapper.find({ ref: "Ver más" });
-  //   // expect(button.find("v-btn").exists()).toBe(true);
+    vi.spyOn(wrapper.vm, "favoriteClicked");
+    wrapper.vm.placeId = "622fb6522ce112a7ddb0c657";
+    wrapper.vm.favoriteClicked();
+    expect(wrapper.vm.favoriteClicked).toHaveBeenCalled();
+  });
 
-  //   // expect(wrapper.text()).toContain("Paseo de coches - Retiro");
-  //   // const btn = wrapper.find("v-btn");
-  //   // expect(btn.exists()).toBe(true);
-  //   // // await wrapper.find(icon).trigger("click");
-  //   // mockFavorite.toHaveBeenCalled();
-  //   // favoriteFunction.should.have.been.called();
-  // });
+  it("'when 'See more' icon is clicked detailsClicked function is called", () => {
+    // const $route = {
+    //   path: "/rollerplaces/622fb6522ce112a7ddb0c657",
+    // };
+
+    const wrapper = mount(TestComponent, {
+      global: {
+        plugins: [vuetify, pinia],
+      },
+      props: { place: placeObj },
+      // mocks: {
+      //   $route,
+      // },
+    });
+
+    vi.spyOn(wrapper.vm, "detailsClicked");
+    wrapper.vm.placeId = "622fb6522ce112a7ddb0c657";
+    wrapper.vm.detailsClicked();
+    expect(wrapper.vm.detailsClicked).toHaveBeenCalled();
+    // wrapper.vm.$route.path;
+  });
 });

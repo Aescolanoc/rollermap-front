@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
@@ -17,6 +17,7 @@ describe("RollerPlaceList component", () => {
       template: "<div/>",
     },
   };
+  const placeTypeMock = "rink";
 
   it("renders properly", () => {
     const wrapper = mount(TestComponent, {
@@ -28,14 +29,41 @@ describe("RollerPlaceList component", () => {
     expect(wrapper).toBeTruthy();
   });
 
-  it("has a 'create new' button", () => {
+  it("filterChanged is called", () => {
     const wrapper = mount(TestComponent, {
       global: {
         plugins: [vuetify, pinia],
         stubs: stubs,
       },
     });
-    const element = wrapper.get("button.v-btn.v-btn--elevated");
-    expect(element.text()).toEqual("crear pista/ruta");
+    vi.spyOn(wrapper.vm, "filterChanged");
+    wrapper.vm.checkbox = true;
+    wrapper.vm.filterChanged();
+    expect(wrapper.vm.filterChanged).toHaveBeenCalled();
   });
+
+  it("newPlaceClicked function is called", () => {
+    const wrapper = mount(TestComponent, {
+      global: {
+        plugins: [vuetify, pinia],
+        stubs: stubs,
+      },
+      props: { PlaceType: placeTypeMock },
+    });
+    vi.spyOn(wrapper.vm, "newPlaceClicked");
+    wrapper.vm.myPlaces = false;
+    wrapper.vm.newPlaceClicked();
+    expect(wrapper.vm.newPlaceClicked).toHaveBeenCalled();
+  });
+
+  // it("has a 'create new' button", () => {
+  //   const wrapper = mount(TestComponent, {
+  //     global: {
+  //       plugins: [vuetify, pinia],
+  //       stubs: stubs,
+  //     },
+  //   });
+  //   const element = wrapper.get(".v-btn.v-btn--elevated.v-btn--icon");
+  //   expect(element.text()).toEqual("crear pista/ruta");
+  // });
 });

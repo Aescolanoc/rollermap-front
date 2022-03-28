@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
@@ -39,7 +39,7 @@ describe("RollerPlaceDetails component", () => {
     },
   };
 
-  it("renders properly", () => {
+  it("renders RollerPlaceDetails component properly", () => {
     const wrapper = shallowMount(TestComponent, {
       global: {
         plugins: [vuetify, pinia],
@@ -63,22 +63,6 @@ describe("RollerPlaceDetails component", () => {
     expect(wrapper).toBeTruthy();
   });
 
-  it("shows a title", () => {
-    const wrapper = mount(TestComponent, {
-      global: {
-        plugins: [vuetify, pinia],
-        stubs: stubs,
-        mocks: {
-          $store,
-        },
-        props: { routeId: "622fb6522ce112a7ddb0c657" },
-      },
-    });
-
-    const element = wrapper.get(".v-card-title.name");
-    expect(element.text()).toEqual("Paseo de coches - Retiro");
-  });
-
   it("shows a description", () => {
     const wrapper = mount(TestComponent, {
       global: {
@@ -93,5 +77,29 @@ describe("RollerPlaceDetails component", () => {
 
     const element = wrapper.get(".description");
     expect(element.text()).toEqual("Descripción:");
+  });
+
+  it("'when 'Update' button is clicked updatePlaceClicked function is called", () => {
+    const wrapper = mount(TestComponent, {
+      global: {
+        plugins: [vuetify, pinia],
+      },
+    });
+
+    vi.spyOn(wrapper.vm, "updatePlaceClicked");
+    wrapper.vm.updatePlaceClicked();
+    expect(wrapper.vm.updatePlaceClicked).toHaveBeenCalled();
+  });
+
+  it("'when 'Update' button is clicked deletePlaceClicked function is called", () => {
+    const wrapper = mount(TestComponent, {
+      global: {
+        plugins: [vuetify, pinia],
+      },
+    });
+
+    vi.spyOn(wrapper.vm, "deletePlaceClicked");
+    wrapper.vm.deletePlaceClicked();
+    expect(wrapper.vm.deletePlaceClicked).toHaveBeenCalled();
   });
 });

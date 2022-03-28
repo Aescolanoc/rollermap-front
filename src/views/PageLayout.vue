@@ -14,17 +14,17 @@
         <v-menu botton>
           <template v-slot:activator="{ props }">
             <v-btn icon v-bind="props">
-              <v-icon color="purple-darken-3">mdi-account-circle</v-icon>
+              <v-icon class="user-menu" color="purple-darken-3">mdi-account-circle</v-icon>
             </v-btn>
           </template>
           <v-list v-if="store.user">
             <v-list-item v-if="store.user.name">
               <v-list-item-title>{{ store.user.name }}</v-list-item-title>
             </v-list-item>
-            <v-list-item @click="profileClicked">
+            <v-list-item class="user-menu_edit" @click="profileClicked">
               <v-list-item-title>Editar perfil</v-list-item-title>
             </v-list-item>
-            <v-list-item @click="store.userLogOut">
+            <v-list-item class="user-menu_logout" @click="store.userLogOut">
               <v-list-item-title>Cerrar sesión</v-list-item-title>
             </v-list-item>
           </v-list>

@@ -107,7 +107,6 @@ export default defineComponent({
         this.wrongFileSize = true;
       } else {
         const storageRef = firebase.ref(firebase.storage, "images/" + new Date().getTime() + this.photos[0].name);
-
         firebase.uploadBytes(storageRef, this.photos[0]).then((snapshot) => {
           firebase.getDownloadURL(snapshot.ref).then((downloadURL: string) => {
             this.place.image = downloadURL;

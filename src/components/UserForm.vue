@@ -8,7 +8,7 @@
         alt="RollerMap logo"
         srcset="../assets/img/login-logo.png 1x, ../assets/img/login-logo@2x.png 2x"
       />
-      <h3 v-else>Editar perfil de {{ store.user.name }}</h3>
+      <h3 class="user-form_title-edit" v-else>Editar perfil de {{ store.user.name }}</h3>
       <v-text-field v-model="user.name" label="Nombre" :placeholder="store.user.name" required></v-text-field>
       <template v-if="!userId">
         <v-text-field v-model="user.email" label="E-mail" required></v-text-field>
