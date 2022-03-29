@@ -81,7 +81,7 @@ export default defineComponent({
   }
 
   .login-form {
-    width: 400px;
+    max-width: 350px;
     height: auto;
     margin: 0 auto;
     display: block;

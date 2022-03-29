@@ -112,7 +112,7 @@ export default defineComponent({
 
 <style lang="scss">
 .user-form {
-  width: 400px;
+  max-width: 350px;
   margin: 0 auto;
   display: block;
 
