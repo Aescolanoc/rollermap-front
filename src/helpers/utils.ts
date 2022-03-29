@@ -17,14 +17,16 @@ export function getUserId(): string | boolean {
   }
 }
 
-export const geoJson = {
-  type: "geojson",
-  data: {
-    type: "Feature",
-    properties: {},
-    geometry: {
-      type: "LineString",
-      coordinates: [] as any[],
+export function getGeoJson() {
+  return {
+    type: "geojson",
+    data: {
+      type: "Feature",
+      properties: {},
+      geometry: {
+        type: "LineString",
+        coordinates: [] as any[],
+      },
     },
-  },
-};
+  };
+}

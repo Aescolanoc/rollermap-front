@@ -45,10 +45,10 @@
       <v-textarea solo v-model="place.description" name="description" label="Descripción" required></v-textarea>
 
       <v-radio-group v-model="place.level" inline>
-        <template v-slot:label> <span class="text-body-1">Nivel:</span> </template>
-        <v-radio color="purple" label="Principiante" :value="PlaceLevel.BEGINNER"></v-radio>
-        <v-radio color="purple" label="Intermedio" :value="PlaceLevel.INTERMEDIATE"></v-radio>
-        <v-radio color="purple" label="Avanzado" :value="PlaceLevel.EXPERT"></v-radio>
+        <template v-slot:label> <span class="text-body-1">Dificultad:</span> </template>
+        <v-radio color="purple" label="Baja" :value="PlaceLevel.BEGINNER"></v-radio>
+        <v-radio color="purple" label="Media" :value="PlaceLevel.INTERMEDIATE"></v-radio>
+        <v-radio color="purple" label="Alta" :value="PlaceLevel.EXPERT"></v-radio>
       </v-radio-group>
       <v-text-field v-model="place.city" label="City" required></v-text-field>
       <v-file-input
@@ -77,7 +77,7 @@ import type RollerPlace from "@/types/RollerPlace";
 import { PlaceType, PlaceLevel } from "@/helpers/rollerMapEnums";
 import firebase from "@/firebaseConfig";
 import { mapBoxConfig } from "@/config";
-import { geoJson } from "@/helpers/utils";
+import { getGeoJson } from "@/helpers/utils";
 
 export default defineComponent({
   setup() {
@@ -98,7 +98,7 @@ export default defineComponent({
       photos: [] as any[],
       photoUrl: "" as string,
       wrongFileSize: false as boolean,
-      geoJson,
+      geoJson: getGeoJson(),
     };
   },
   props: {
