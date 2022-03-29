@@ -15,6 +15,7 @@ describe("RollerPlaceCard component", () => {
     name: "Paseo de coches - Retiro",
     description: "Pista muy popular entre los rollers",
     location: [-3.68307, 40.41317],
+    trace: [],
     type: "pista",
     slalom: true,
     city: "Madrid",

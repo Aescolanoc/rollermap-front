@@ -18,6 +18,7 @@ describe("RollerPlaceForm component", () => {
     name: "Paseo de coches - Retiro",
     description: "Pista muy popular entre los rollers",
     location: [-3.68307, 40.41317],
+    trace: [],
     type: "pista",
     slalom: true,
     city: "Madrid",
@@ -46,7 +47,7 @@ describe("RollerPlaceForm component", () => {
         plugins: [vuetify, pinia],
       },
       props: { routeId: routeIdMock, PlaceType: placeTypeMock, PlaceLevel: placeLevelMock, place: placeObj },
-      methods: { pinia.saveClicked, saveClickedMock },
+      methods: { saveClicked: saveClickedMock },
     });
     vi.spyOn(wrapper.vm, "saveClickedMock");
     await wrapper.vm.registerClicked();
