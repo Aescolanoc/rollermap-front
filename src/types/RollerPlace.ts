@@ -3,6 +3,7 @@ export default interface RollerPlace {
   name: string;
   description: string;
   location: Array<number>;
+  trace: Array<any>;
   type: string;
   slalom: boolean;
   city: string;
