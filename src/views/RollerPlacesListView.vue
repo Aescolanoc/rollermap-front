@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Listado de pistas</h1>
+    <h1>Listado de sitios</h1>
     <roller-places-list v-if="!loading"></roller-places-list>
     <div v-else class="text-center">
       <v-progress-circular :size="70" :width="7" color="purple-darken-3" indeterminate></v-progress-circular>

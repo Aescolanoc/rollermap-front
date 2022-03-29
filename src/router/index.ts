@@ -72,17 +72,6 @@ const router = createRouter({
         },
       ],
     },
-    // {
-    //   path: "/rollerplaces/new",
-    //   name: "newrollerplace",
-    //   component: () => import("../components/RollerPlaceForm.vue"),
-    // },
-    // {
-    //   path: "/rollerplaces/:routeId",
-    //   name: "editrollerplace",
-    //   component: () => import("../components/RollerPlaceForm.vue"),
-    //   props: true,
-    // },
   ],
 });
 
