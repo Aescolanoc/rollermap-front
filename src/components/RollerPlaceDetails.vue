@@ -41,6 +41,7 @@ import { useRollerMapStore } from "@/stores/store";
 import type { PropType } from "vue";
 import type RollerPlace from "@/types/RollerPlace";
 import { mapBoxConfig } from "@/config";
+import { PlaceType } from "@/helpers/rollerMapEnums";
 
 export default defineComponent({
   setup() {
@@ -50,6 +51,9 @@ export default defineComponent({
   computed: {
     isAuthor() {
       return this.store.user._id === this.place.author;
+    },
+    isRink() {
+      return this.place.type === PlaceType.RINK;
     },
   },
   data() {
