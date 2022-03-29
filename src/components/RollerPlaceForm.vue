@@ -16,6 +16,7 @@
           <template v-slot:icon>
             <img
               src="../assets/img/skate-marker.png"
+              alt="Marcador mapa logo patín"
               srcset="../assets/img/skate-marker.png 1x, ../assets/img/skate-marker@2x.png 2x"
             />
           </template>

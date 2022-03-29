@@ -5,6 +5,7 @@ import * as directives from "vuetify/directives";
 import { createTestingPinia } from "@pinia/testing";
 import { mount } from "@vue/test-utils";
 import TestComponent from "@/views/LoginView.vue";
+import { login } from "../../services/api";
 
 vi.mock("../../services/api", () => {
   return {
@@ -52,6 +53,7 @@ describe("LoginView component", () => {
     vi.spyOn(wrapper.vm, "loginClicked");
     await wrapper.vm.loginClicked();
     expect(wrapper.vm.loginClicked).toHaveBeenCalled();
+    expect(login).toHaveBeenCalled();
   });
 
   it("'when 'register' button is clicked registerClicked function is called", async () => {

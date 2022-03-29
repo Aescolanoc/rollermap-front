@@ -3,7 +3,7 @@ import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import { createTestingPinia } from "@pinia/testing";
-import { mount } from "@vue/test-utils";
+import { mount, VueWrapper } from "@vue/test-utils";
 import TestComponent from "@/components/RollerPlaceForm.vue";
 
 describe("RollerPlaceForm component", () => {
@@ -52,5 +52,22 @@ describe("RollerPlaceForm component", () => {
     vi.spyOn(wrapper.vm, "saveClickedMock");
     await wrapper.vm.registerClicked();
     expect(wrapper.vm.saveClicked).toHaveBeenCalled();
+  });
+
+  it("mapClicked function is called", async () => {
+    const rollerMapStore = pinia({});
+    vi.spyOn(rollerMapStore, "createRollerPlace");
+    let saveClickedMock = vi.fn();
+
+    const wrapper = mount(TestComponent, {
+      global: {
+        plugins: [vuetify, pinia],
+      },
+      props: { routeId: routeIdMock, PlaceType: placeTypeMock, PlaceLevel: placeLevelMock, place: placeObj },
+      methods: { saveClicked: saveClickedMock },
+    });
+    const element = VueWrapper(".rollerplace-form_map");
+    element.trigger("click");
+    expect(saveClickedMock).toHaveBeenCalled();
   });
 });

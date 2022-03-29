@@ -5,6 +5,7 @@ import * as directives from "vuetify/directives";
 import { createTestingPinia } from "@pinia/testing";
 import { mount } from "@vue/test-utils";
 import TestComponent from "@/components/RollerPlaceCard.vue";
+import { createRouter, createWebHistory } from "vue-router";
 
 describe("RollerPlaceCard component", () => {
   const vuetify = createVuetify({ components, directives });
@@ -33,6 +34,11 @@ describe("RollerPlaceCard component", () => {
     },
   };
 
+  const router = createRouter({
+    history: createWebHistory(),
+    routes: [],
+  });
+
   it("RollerPlaceCard component renders properly", () => {
     let isRinkMock = vi.fn();
     const wrapper = mount(TestComponent, {
@@ -51,7 +57,7 @@ describe("RollerPlaceCard component", () => {
   it("RollerPlaceCard component shows a title", () => {
     const wrapper = mount(TestComponent, {
       global: {
-        plugins: [vuetify, pinia],
+        plugins: [vuetify, pinia, router],
         stubs: stubs,
       },
       props: { place: placeObj },
@@ -64,7 +70,7 @@ describe("RollerPlaceCard component", () => {
   it("'when 'favorite' icon is clicked favoriteClicked function is called", () => {
     const wrapper = mount(TestComponent, {
       global: {
-        plugins: [vuetify, pinia],
+        plugins: [vuetify, pinia, router],
       },
       props: { place: placeObj },
     });
@@ -82,7 +88,7 @@ describe("RollerPlaceCard component", () => {
 
     const wrapper = mount(TestComponent, {
       global: {
-        plugins: [vuetify, pinia],
+        plugins: [vuetify, pinia, router],
       },
       props: { place: placeObj },
       // mocks: {
