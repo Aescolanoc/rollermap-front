@@ -14,7 +14,7 @@
   </v-row>
 
   <div v-if="filteredRollerPlaces.length" class="d-flex flex-wrap flex-column justify-space-around flex-sm-row">
-    <div v-for="item in filteredRollerPlaces" :key="item._id">
+    <div v-for="item in paginatedRollerPlaces" :key="item._id">
       <roller-place-card :place="item"></roller-place-card>
     </div>
   </div>
@@ -24,7 +24,7 @@
   </div>
 
   <div class="text-center">
-    <v-pagination v-model="page" :length="filteredRollerPlaces.length"></v-pagination>
+    <v-pagination v-model="currentPage" :length="totalPages"></v-pagination>
   </div>
 </template>
 
@@ -45,11 +45,21 @@ export default defineComponent({
     RollerPlaceCard,
     RollerFilter,
   },
+
+  watch: {
+    currentPage(): void {
+      this.pageChanged();
+    },
+  },
+
   data() {
     return {
-      page: 1,
+      currentPage: 1 as number,
+      itemsInPage: 8 as number,
+      totalPages: 1 as number,
       filter: PlaceType.ALL as PlaceType,
       filteredRollerPlaces: [] as RollerPlace[],
+      paginatedRollerPlaces: [] as RollerPlace[],
       PlaceType,
     };
   },
@@ -64,8 +74,10 @@ export default defineComponent({
   },
   methods: {
     filterChanged(filter: PlaceType) {
+      this.currentPage = 1;
       this.filter = filter;
       let places = this.myPlaces ? this.store.userRollerPlaces : this.store.rollerPlaces;
+
       if (filter === PlaceType.ALL) {
         this.filteredRollerPlaces = places;
       } else {
@@ -73,8 +85,28 @@ export default defineComponent({
           return item.type === this.filter;
         });
       }
+      this.getPaginatedItems();
     },
-    newPlaceClicked() {
+
+    pageChanged(): void {
+      this.getPaginatedItems();
+    },
+
+    getPaginatedItems(): void {
+      this.totalPages = Math.ceil(this.filteredRollerPlaces.length / this.itemsInPage);
+      this.paginatedRollerPlaces = [];
+      const startIndex = (this.currentPage - 1) * this.itemsInPage;
+      const endIndex = startIndex + this.itemsInPage;
+      console.log(startIndex, endIndex, this.currentPage);
+      for (let index = startIndex; index < endIndex; index++) {
+        if (this.filteredRollerPlaces[index]) {
+          this.paginatedRollerPlaces.push(this.filteredRollerPlaces[index]);
+        }
+      }
+      console.log(this.paginatedRollerPlaces);
+    },
+
+    newPlaceClicked(): void {
       this.$router.push({
         name: "newrollerplace",
       });
