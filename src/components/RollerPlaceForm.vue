@@ -156,7 +156,7 @@ export default defineComponent({
     },
 
     updateTraceLine() {
-      this.geoJson.data.features[0].geometry.coordinates = this.place.trace;
+      this.geoJson.data.geometry.coordinates = this.place.trace;
     },
 
     removeLastPoint() {

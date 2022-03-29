@@ -1,22 +1,26 @@
 <template>
-  <v-row>
-    <v-col cols="6">
-      <v-card class="mx-auto">
+  <v-row class="h100 ma-0" align="center">
+    <v-col xs="12" sm="12" md="6" lg="6" class="pa-0">
+      <v-card class="mx-auto details-info">
         <v-img class="align-end text-white" height="200" :src="place.image" cover> </v-img>
         <v-card-text>
           <v-card-title class="name font-weight-bold"> {{ place.name }} </v-card-title>
 
           <div class="description font-weight-bold">Descripción:</div>
           <p class="text-left text-body-1">{{ place.description }}</p>
-          <div class="font-weight-bold">Dificultad:</div>
-          <p>{{ place.level }}</p>
+
+          <v-chip label color="cyan-darken-2 ">
+            <v-icon left icon="mdi-rollerblade"></v-icon>
+            Dificultad: {{ level }}
+          </v-chip>
+
+          <v-chip label color="orange-darken-1">
+            <v-icon left icon="mdi-rollerblade"></v-icon>
+            Slalom: {{ slalom }}
+          </v-chip>
+
           <div class="font-weight-bold">Ciudad:</div>
           <p>{{ place.city }}</p>
-          <div class="font-weight-bold">
-            Slalom:
-            <v-icon v-if="place.slalom" color="green">mdi-rollerblade</v-icon>
-            <v-icon v-else color="red">mdi-roller-skate-off</v-icon>
-          </div>
         </v-card-text>
 
         <v-card-actions v-if="isAuthor">
@@ -25,12 +29,29 @@
         </v-card-actions>
       </v-card>
     </v-col>
-    <v-col cols="6">
-      <mapbox-map :accessToken="mapboxToken" :center="place.location" :zoom="15" mapStyle="streets-v11">
-        <mapbox-navigation-control position="top-right" />
-        <mapbox-geolocate-control />
-        <mapbox-marker :lngLat="place.location" />
-      </mapbox-map>
+    <v-col xs="12" sm="12" md="6" lg="6" class="pa-0" align-self="start">
+      <div class="details-map">
+        <mapbox-map :accessToken="mapboxToken" :center="place.location" :zoom="15" mapStyle="streets-v11">
+          <mapbox-navigation-control position="top-right" />
+          <mapbox-geolocate-control />
+          <mapbox-marker v-if="isRink" :lngLat="place.location">
+            <template v-slot:icon>
+              <img
+                src="../assets/img/skate-marker.png"
+                srcset="../assets/img/skate-marker.png 1x, ../assets/img/skate-marker@2x.png 2x"
+              />
+            </template>
+          </mapbox-marker>
+
+          <mapbox-geogeometry-raw v-if="!isRink" :source="geoJson">
+            <mapbox-geogeometry-line :width="6" color="#f26d50" />
+          </mapbox-geogeometry-raw>
+
+          <template v-if="!isRink">
+            <mapbox-marker v-for="point in place.trace" :key="point[0] + point[1]" :lngLat="point" />
+          </template>
+        </mapbox-map>
+      </div>
     </v-col>
   </v-row>
 </template>
@@ -41,7 +62,8 @@ import { useRollerMapStore } from "@/stores/store";
 import type { PropType } from "vue";
 import type RollerPlace from "@/types/RollerPlace";
 import { mapBoxConfig } from "@/config";
-import { PlaceType } from "@/helpers/rollerMapEnums";
+import { PlaceType, PlaceLevel } from "@/helpers/rollerMapEnums";
+import { geoJson } from "@/helpers/utils";
 
 export default defineComponent({
   setup() {
@@ -60,6 +82,9 @@ export default defineComponent({
     return {
       place: {} as RollerPlace,
       mapboxToken: mapBoxConfig.token,
+      level: "" as string,
+      slalom: "" as string,
+      geoJson,
     };
   },
   props: {
@@ -72,6 +97,18 @@ export default defineComponent({
     let placeFound = this.store.rollerPlaces.find((e) => e._id === this.routeId);
     if (placeFound) {
       this.place = placeFound;
+      if (this.place.level === PlaceLevel.BEGINNER) {
+        this.level = "Baja";
+      } else if (this.place.level === PlaceLevel.INTERMEDIATE) {
+        this.level = "Media";
+      } else if (this.place.level === PlaceLevel.EXPERT) {
+        this.level = "Alta";
+      }
+      if (this.place.slalom === true) {
+        this.slalom = "Sí";
+      } else if (this.place.slalom === false) {
+        this.slalom = "No";
+      }
     }
   },
 
@@ -94,3 +131,14 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss">
+.details-map {
+  height: calc(100vh - 152px);
+  width: 100%;
+}
+.details-info {
+  height: calc(100vh - 152px);
+  width: 100%;
+}
+</style>

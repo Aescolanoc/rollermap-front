@@ -8,7 +8,7 @@
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </template>
-        <span>Crear Pista</span>
+        <span>Crear Pista/Ruta</span>
       </v-tooltip>
     </v-col>
   </v-row>
@@ -20,7 +20,7 @@
   </div>
   <div v-else class="list-noplaces">
     <img class="List-noplaces__image" src="../assets/img/no_rollerplaces.png" alt="No hay pistas que mostrar" />
-    <p>No hay contenido para mostrar</p>
+    <p class="text-disabled">No hay contenido para mostrar</p>
   </div>
 
   <div class="text-center">
@@ -97,13 +97,11 @@ export default defineComponent({
       this.paginatedRollerPlaces = [];
       const startIndex = (this.currentPage - 1) * this.itemsInPage;
       const endIndex = startIndex + this.itemsInPage;
-      console.log(startIndex, endIndex, this.currentPage);
       for (let index = startIndex; index < endIndex; index++) {
         if (this.filteredRollerPlaces[index]) {
           this.paginatedRollerPlaces.push(this.filteredRollerPlaces[index]);
         }
       }
-      console.log(this.paginatedRollerPlaces);
     },
 
     newPlaceClicked(): void {

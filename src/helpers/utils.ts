@@ -20,15 +20,11 @@ export function getUserId(): string | boolean {
 export const geoJson = {
   type: "geojson",
   data: {
-    type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        geometry: {
-          type: "LineString",
-          coordinates: [] as any[],
-        },
-      },
-    ],
+    type: "Feature",
+    properties: {},
+    geometry: {
+      type: "LineString",
+      coordinates: [] as any[],
+    },
   },
 };
