@@ -43,10 +43,31 @@
 
       <template v-slot:append>
         <div class="hidden-sm hidden-md hidden-lg hidden-xl">
-          <v-app-bar-nav-icon color="purple-darken-3"></v-app-bar-nav-icon>
+          <v-app-bar-nav-icon
+            color="purple-darken-3"
+            @click.stop="mobileMenuVisible = !mobileMenuVisible"
+          ></v-app-bar-nav-icon>
         </div>
       </template>
     </v-app-bar>
+
+    <v-navigation-drawer v-model="mobileMenuVisible" temporary>
+      <v-list nav dense density="compact">
+        <v-list-item active-color="primary" @click.prevent="placesClicked">
+          <v-list-item-avatar start>
+            <v-icon icon="mdi-rollerblade"></v-icon>
+          </v-list-item-avatar>
+          <v-list-item-title> Sitios</v-list-item-title>
+        </v-list-item>
+        <v-list-item active-color="primary" @click.prevent="MyPlacesClicked">
+          <v-list-item-avatar start>
+            <v-icon icon="mdi-heart"></v-icon>
+          </v-list-item-avatar>
+          <v-list-item-title> Mis Sitios</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
     <v-container fluid>
       <router-view v-slot="{ Component }">
         <transition name="fade-transform" mode="out-in">
@@ -67,7 +88,12 @@ export default defineComponent({
     const store = useRollerMapStore();
     return { store };
   },
-
+  data() {
+    return {
+      mobileMenuVisible: false,
+      selectedMobileMenu: null,
+    };
+  },
   methods: {
     MyPlacesClicked() {
       let token: string | null = sessionStorage.getItem("userToken");
