@@ -25,7 +25,7 @@
         </v-card-text>
 
         <v-card-actions v-if="isAuthor">
-          <v-btn @click="updatePlaceClicked()" color="purple"> Editar </v-btn>
+          <v-btn @click="updatePlaceClicked()" color="purple">Editar</v-btn>
           <v-dialog>
             <template v-slot:activator="{ props }">
               <v-btn color="red" v-bind="props">Borrar</v-btn>

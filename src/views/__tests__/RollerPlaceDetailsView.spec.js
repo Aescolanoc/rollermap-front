@@ -27,6 +27,5 @@ describe("RollerPlaceDetailsView component", () => {
     });
 
     expect(wrapper.find("div")).toBeTruthy();
-    // expect(wrapper.find("button")).toBeTruthy();
   });
 });

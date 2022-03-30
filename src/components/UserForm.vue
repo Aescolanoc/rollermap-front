@@ -38,7 +38,7 @@
       <v-btn v-else color="deep-purple" @click="registerClicked()">Registro</v-btn>
     </div>
 
-    <v-snackbar v-model="showError">{{ errorMessage }}</v-snackbar>
+    <v-snackbar color="red" v-model="showError">{{ errorMessage }}</v-snackbar>
   </div>
 </template>
 

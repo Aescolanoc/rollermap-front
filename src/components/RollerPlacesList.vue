@@ -4,7 +4,7 @@
       <roller-filter @filtered="filterChanged"></roller-filter>
       <v-tooltip bottom>
         <template v-slot:activator="{ props }">
-          <v-btn icon color="deep-purple" class="ml-8" v-bind="props" @click="newPlaceClicked()">
+          <v-btn icon color="deep-purple" class="button-create ml-8" v-bind="props" @click="newPlaceClicked()">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </template>

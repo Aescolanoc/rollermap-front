@@ -82,24 +82,16 @@ describe("RollerPlaceCard component", () => {
   });
 
   it("'when 'See more' icon is clicked detailsClicked function is called", () => {
-    // const $route = {
-    //   path: "/rollerplaces/622fb6522ce112a7ddb0c657",
-    // };
-
     const wrapper = mount(TestComponent, {
       global: {
         plugins: [vuetify, pinia, router],
       },
       props: { place: placeObj },
-      // mocks: {
-      //   $route,
-      // },
     });
 
     vi.spyOn(wrapper.vm, "detailsClicked");
     wrapper.vm.placeId = "622fb6522ce112a7ddb0c657";
     wrapper.vm.detailsClicked();
     expect(wrapper.vm.detailsClicked).toHaveBeenCalled();
-    // wrapper.vm.$route.path;
   });
 });

@@ -2,7 +2,7 @@
 
 describe("RollerMap", () => {
   it("the user can login", () => {
-    cy.visit("/");
+    cy.visit("/login");
     cy.get('input[type="text"').type("pepe@pepe.es");
     cy.get('input[type="password"').type("12345");
     cy.get("button.bg-deep-purple").click();
@@ -11,7 +11,7 @@ describe("RollerMap", () => {
 
   it("the user click on 'see details'", () => {
     cy.contains("Ver más").click();
-    cy.location("pathname").should("contain", "rollerplaces");
+    cy.location("pathname").should("contain", "/rollerplaces/622fb6522ce112a7ddb0c657");
   });
 
   it("the user click on 'Sites'", () => {
