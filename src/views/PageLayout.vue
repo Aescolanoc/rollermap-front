@@ -32,13 +32,6 @@
 
         <v-btn variant="text" color="purple-darken-3" @click="placesClicked">Sitios</v-btn>
         <v-btn variant="text" color="purple-darken-3" @click="MyPlacesClicked">Mis sitios</v-btn>
-        <!-- <v-btn icon>
-          <v-icon color="purple-darken-3">mdi-magnify</v-icon>
-        </v-btn>
-
-        <v-btn icon>
-          <v-icon color="purple-darken-3">mdi-heart</v-icon>
-        </v-btn> -->
       </div>
 
       <template v-slot:append>
@@ -64,6 +57,12 @@
             <v-icon icon="mdi-heart"></v-icon>
           </v-list-item-avatar>
           <v-list-item-title> Mis Sitios</v-list-item-title>
+        </v-list-item>
+        <v-list-item active-color="primary" @click="store.userLogOut">
+          <v-list-item-avatar start>
+            <v-icon icon="mdi-logout"></v-icon>
+          </v-list-item-avatar>
+          <v-list-item-title> Cerrar sesión</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
