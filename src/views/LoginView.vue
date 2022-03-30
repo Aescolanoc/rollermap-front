@@ -21,8 +21,10 @@
             ></v-text-field>
           </v-form>
           <div class="login-buttons">
-            <v-btn color="deep-purple" @click="loginClicked()">Iniciar sesion</v-btn>
-            <v-btn color="purple-darken-3" variant="text" @click="registerClicked"> Registrate aquí </v-btn>
+            <v-btn class="login-buttons_login" color="deep-purple" @click="loginClicked()">Iniciar sesion</v-btn>
+            <v-btn class="login-buttons_register" color="purple-darken-3" variant="text" @click="registerClicked"
+              >Registrate aquí</v-btn
+            >
           </div>
         </div>
       </v-col>
@@ -30,7 +32,7 @@
         <div class="login-image hidden-xs hidden-sm"></div>
       </v-col>
     </v-row>
-    <v-snackbar v-model="showError">Error al iniciar sesion, intentelo de nuevo</v-snackbar>
+    <v-snackbar color="red" v-model="showError">Error al iniciar sesion, intentelo de nuevo</v-snackbar>
   </v-main>
 </template>
 

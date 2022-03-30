@@ -30,6 +30,21 @@ describe("LoginView component", () => {
     expect(wrapper).toBeTruthy();
   });
 
+  it("shows 'log in' button", async () => {
+    const wrapper = mount(TestComponent, {
+      global: {
+        plugins: [vuetify, pinia],
+      },
+    });
+
+    const element = wrapper.get(".login-buttons_login");
+    expect(element.text()).toEqual("Iniciar sesion");
+    await element.loginClicked();
+    vi.spyOn(wrapper.vm, "loginClicked");
+    wrapper.vm.loginClicked();
+    expect(wrapper.vm.loginClicked).toHaveBeenCalled();
+  });
+
   it("shows 'Register' button", () => {
     const wrapper = mount(TestComponent, {
       global: {
