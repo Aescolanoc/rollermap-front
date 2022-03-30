@@ -34,7 +34,7 @@
 
     <p v-if="isRink" class="rollerplace-form_map-text">Haz click en el mapa para cambiar la localización</p>
     <p v-else class="rollerplace-form_map-text">Haz click en el mapa para agregar un punto a la ruta</p>
-    <v-btn @click="removeLastPoint">Borrar último punto del mapa</v-btn>
+    <v-btn v-if="!isRink" @click="removeLastPoint">Borrar último punto del mapa</v-btn>
     <v-form class="mt-8">
       <v-radio-group v-model="place.type" inline>
         <template v-slot:label> <span class="text-body-1">Tipo:</span> </template>
@@ -129,6 +129,7 @@ export default defineComponent({
   },
   methods: {
     uploadPhoto() {
+      this.wrongFileSize = false;
       if (this.photos[0].size / 1024 / 1024 > 5) {
         this.wrongFileSize = true;
       } else {

@@ -84,11 +84,11 @@ export default defineComponent({
               email: this.user.email,
               password: this.user.password,
             };
-
+            this.showError = false;
             await this.store.register(newUser);
             this.$router.push({ name: "login" });
           }
-          this.showError = true;
+
           this.errorMessage = "Rellene todos los datos";
         } else {
           this.showError = true;
@@ -99,6 +99,7 @@ export default defineComponent({
         this.errorMessage = "Debe aceptar los terminos y condiciones";
       }
     },
+
     updateClicked() {
       let userToUpdate = { name: "" };
       if (this.user.name) {
