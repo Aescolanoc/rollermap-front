@@ -9,11 +9,6 @@ describe("RollerMap", () => {
     cy.location("pathname").should("contain", "rollerplaces/all");
   });
 
-  it("the user click on 'see details'", () => {
-    cy.contains("Ver más").click();
-    cy.location("pathname").should("contain", "/rollerplaces/622fb6522ce112a7ddb0c657");
-  });
-
   it("the user click on 'Sites'", () => {
     cy.contains("Sitios").click();
     cy.location("pathname").should("contain", "rollerplaces");
