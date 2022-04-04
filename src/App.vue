@@ -1,125 +1,104 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "@/components/HelloWorld.vue";
-</script>
-
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
+  <v-app class="app-wrapper bg-grey-lighten-4">
+    <router-view v-slot="{ Component }">
+      <transition name="fade-transform" mode="out-in">
+        <component :is="Component"></component>
+      </transition>
+    </router-view>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+    <v-footer class="bg-grey-darken-4 text-white text-center d-flex flex-column app-wrapper_footer">
+      <div>
+        <v-btn
+          class="mx-4 text-white"
+          icon="mdi-linkedin"
+          variant="text"
+          @click.prevent="socialClicked('linkedIn')"
+        ></v-btn>
+        <v-btn
+          class="mx-4 text-white"
+          icon="mdi-github"
+          variant="text"
+          @click.prevent="socialClicked('gitHub')"
+        ></v-btn>
+      </div>
+      <div class="text-white">{{ new Date().getFullYear() }} — Made with 🛼 by Mel</div>
+    </v-footer>
+  </v-app>
 </template>
 
-<style>
-@import "@/assets/base.css";
+<script lang="ts">
+import { defineComponent } from "vue";
+import { getUserId } from "./helpers/utils";
+import { useRollerMapStore } from "./stores/store";
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+export default defineComponent({
+  setup() {
+    const store = useRollerMapStore();
+    return { store };
+  },
+  created() {
+    this.checkUser();
+  },
+  methods: {
+    checkUser() {
+      const userId = getUserId();
+      if (userId && !this.store.user?._id && typeof userId === "string") {
+        this.store.getUserDetails(userId);
+      }
+    },
+    socialClicked(socialMedia: string) {
+      switch (socialMedia) {
+        case "linkedIn":
+          window.open("https://www.linkedin.com/in/amalia-escolano/", "_blank");
+          break;
+        case "gitHub":
+          window.open("https://github.com/aescolanoc", "_blank");
+          break;
+        default:
+          break;
+      }
+    },
+  },
+});
+</script>
 
-  font-weight: normal;
+<style lang="scss">
+html {
+  box-sizing: border-box;
 }
 
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+html,
+body {
+  min-height: 100vh;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
+.app-wrapper {
+  min-height: 100vh;
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+  .app-wrapper_footer {
+    max-height: 88px;
   }
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all 0.5s;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+.fade-transform-enter,
+.fade-transform-enter-from {
+  opacity: 0;
+  transform: translateX(30px);
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
 }
 </style>

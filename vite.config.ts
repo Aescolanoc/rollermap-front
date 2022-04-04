@@ -11,7 +11,25 @@ export default defineConfig({
     vuetify({
       autoImport: true,
     }),
+    {
+      name: "vitest-plugin-beforeall",
+      config: () => ({
+        test: { setupFiles: ["./src/beforeAll.ts"] },
+      }),
+    },
   ],
+  test: {
+    globals: true,
+    // globalSetup: ["./src/setupTests.js"],
+
+    environment: "jsdom",
+    deps: {
+      inline: ["vuetify"],
+    },
+    coverage: {
+      reporter: ["text", "html", "lcov"],
+    },
+  },
   define: { "process.env": {} },
   resolve: {
     alias: {
