@@ -1,3 +1,8 @@
-# Amalia-Escolano_Front-Final-Project-202201-MAD
+# RollerMap
 
-SPA with Vue3 and Typescript that shows map points for rollerblanding
+![RollerMap logo](https://raw.githubusercontent.com/Aescolanoc/rollermap-front/main/src/assets/img/rollermap_logo.png)
+
+A website with all skating rinks and routes in one place, filtered by location, type and difficulty.
+
+Technologies: Vue3, Vite, Typescript, Pinia, Vuetify, MapBox, Vitest, Cypress.
+
