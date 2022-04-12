@@ -6,3 +6,4 @@ A website with all skating rinks and routes in one place, filtered by location, 
 
 Technologies: Vue3, Vite, Typescript, Pinia, Vuetify, MapBox, Vitest, Cypress.
 
+![Demo](https://github.com/Aescolanoc/rollermap-front/blob/main/src/assets/img/rollermap.gif?raw=true)
