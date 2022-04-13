@@ -4,12 +4,12 @@ import { useRollerMapStore } from "@/stores/store";
 import { getToken } from "../helpers/utils";
 
 const api = axios.create({
-  baseURL: "http://localhost:4500/",
+  baseURL: "http://rollermap.herokuapp.com",
   timeout: 20000,
 });
 
 const apiToken = axios.create({
-  baseURL: "http://localhost:4500/",
+  baseURL: "http://rollermap.herokuapp.com",
   timeout: 20000,
 });
 
