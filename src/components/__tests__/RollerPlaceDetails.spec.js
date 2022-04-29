@@ -23,7 +23,7 @@ describe("RollerPlaceDetails component", () => {
       user: {},
       rollerPlaces: [
         {
-          _id: "622fb6522ce112a7ddb0c657",
+          _id: "123",
           name: "Paseo de coches - Retiro",
           description: "Pista muy popular entre los rollers",
           location: [-3.68307, 40.41317],
@@ -33,7 +33,7 @@ describe("RollerPlaceDetails component", () => {
           city: "Madrid",
           image: "https://i.imgur.com/dsz1dCN.png",
           level: "baja",
-          author: "622f68740b2fa7a2b155e403",
+          author: "author",
         },
       ],
       userRollerPlaces: [],
@@ -48,7 +48,7 @@ describe("RollerPlaceDetails component", () => {
       },
       props: {
         rollerPlaces: {
-          _id: "622fb6522ce112a7ddb0c657",
+          _id: "123",
           name: "Paseo de coches - Retiro",
           description: "Pista muy popular entre los rollers",
           location: [-3.68307, 40.41317],
@@ -58,7 +58,7 @@ describe("RollerPlaceDetails component", () => {
           city: "Madrid",
           image: "https://i.imgur.com/dsz1dCN.png",
           level: "baja",
-          author: "622f68740b2fa7a2b155e403",
+          author: "author",
         },
       },
     });
@@ -73,7 +73,7 @@ describe("RollerPlaceDetails component", () => {
         mocks: {
           $store,
         },
-        props: { routeId: "622fb6522ce112a7ddb0c657" },
+        props: { routeId: "123" },
       },
     });
 

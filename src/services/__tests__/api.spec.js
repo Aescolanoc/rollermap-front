@@ -19,14 +19,14 @@ vi.mock("axios", () => ({
 describe("Testing Api service", () => {
   describe("When function is called", () => {
     it("login", () => {
-      api.login({ email: "pepe@pepe.com", password: "1234" });
+      api.login({ email: "mail", password: "12345678" });
       expect(axios.create().post).toHaveBeenCalled();
     });
   });
 
   describe("When function is called", () => {
     it("register", () => {
-      api.register({ email: "pepe@pepe.com", password: "1234" });
+      api.register({ email: "mail", password: "12345678" });
       expect(axios.create().post).toHaveBeenCalled();
     });
   });

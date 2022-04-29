@@ -21,9 +21,9 @@ describe("UserForm component", () => {
   const pinia = createTestingPinia();
 
   let newUserMock = {
-    name: "Pepe",
-    email: "pepe@pepe.es",
-    password: "12345",
+    name: "user",
+    email: "email",
+    password: "12345678",
   };
 
   it("renders UserForm component properly", () => {

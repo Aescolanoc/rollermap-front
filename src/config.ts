@@ -14,3 +14,9 @@ export const firebaseConfig = {
 export const mapBoxConfig = {
   token: p.VITE_MAPBOX_TOKEN,
 };
+
+export const guestUser = {
+  user: p.VITE_TEST_USER,
+  password: p.VITE_TEST_USER_PASS,
+  id: p.VITE_TEST_USER_ID,
+};

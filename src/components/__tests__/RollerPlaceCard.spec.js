@@ -12,7 +12,7 @@ describe("RollerPlaceCard component", () => {
   const pinia = createTestingPinia();
 
   let placeObj = {
-    _id: "622fb6522ce112a7ddb0c657",
+    _id: "123",
     name: "Paseo de coches - Retiro",
     description: "Pista muy popular entre los rollers",
     location: [-3.68307, 40.41317],
@@ -22,7 +22,7 @@ describe("RollerPlaceCard component", () => {
     city: "Madrid",
     image: "https://i.imgur.com/dsz1dCN.png",
     level: "baja",
-    author: "622f68740b2fa7a2b155e403",
+    author: "author",
   };
 
   const stubs = {
@@ -76,7 +76,7 @@ describe("RollerPlaceCard component", () => {
     });
 
     vi.spyOn(wrapper.vm, "favoriteClicked");
-    wrapper.vm.placeId = "622fb6522ce112a7ddb0c657";
+    wrapper.vm.placeId = "123";
     wrapper.vm.favoriteClicked();
     expect(wrapper.vm.favoriteClicked).toHaveBeenCalled();
   });
@@ -90,7 +90,7 @@ describe("RollerPlaceCard component", () => {
     });
 
     vi.spyOn(wrapper.vm, "detailsClicked");
-    wrapper.vm.placeId = "622fb6522ce112a7ddb0c657";
+    wrapper.vm.placeId = "123";
     wrapper.vm.detailsClicked();
     expect(wrapper.vm.detailsClicked).toHaveBeenCalled();
   });

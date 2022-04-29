@@ -31,21 +31,21 @@ describe("Testing Store", () => {
 
   it("login", async () => {
     const user = useRollerMapStore();
-    let result = await user.login({ email: "paco@paco.es", password: "1234" });
+    let result = await user.login({ email: "email", password: "12345678" });
 
     expect(result).toEqual({ token: "token", _id: "1" });
   });
 
   it("register", async () => {
     const user = useRollerMapStore();
-    let result = await user.register({ name: "Paco", email: "paco@paco.es", password: "1234" });
+    let result = await user.register({ name: "Paco", email: "email", password: "12345678" });
 
     expect(result).toEqual({ name: "Paco", _id: "1" });
   });
 
   it("getUserDetails", async () => {
     const user = useRollerMapStore();
-    let result = await user.getUserDetails({ name: "Paco", email: "paco@paco.es", password: "1234" });
+    let result = await user.getUserDetails({ name: "Paco", email: "email", password: "12345678" });
 
     expect(result).toEqual({ name: "Paco", _id: "1" });
   });
