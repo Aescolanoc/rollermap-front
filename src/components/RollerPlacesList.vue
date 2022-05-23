@@ -147,7 +147,7 @@ export default defineComponent({
   margin-bottom: 10px;
   width: fit-content;
   text-align: right;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .list-noplaces {
