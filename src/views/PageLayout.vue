@@ -28,7 +28,7 @@
               <v-list-item-title>Cerrar sesión</v-list-item-title>
             </v-list-item>
             <v-list-item v-if="isGuest" class="user-menu_logout" @click="signIn">
-              <v-list-item-title>Registrarse</v-list-item-title>
+              <v-list-item-title>Login</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -71,7 +71,7 @@
           <v-list-item-avatar start>
             <v-icon icon="mdi-login"></v-icon>
           </v-list-item-avatar>
-          <v-list-item-title> Registro</v-list-item-title>
+          <v-list-item-title> Login</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -114,7 +114,7 @@ export default defineComponent({
   },
   methods: {
     signIn() {
-      this.$router.push({ name: "register" });
+      this.$router.push({ name: "login" });
     },
     MyPlacesClicked() {
       let token: string | null = sessionStorage.getItem("userToken");
