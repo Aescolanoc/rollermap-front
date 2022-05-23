@@ -35,7 +35,9 @@
     </v-form>
     <div class="user-form_buttons mb-8">
       <v-btn v-if="userId" color="deep-purple" @click="updateClicked()">Confirmar</v-btn>
+
       <v-btn v-else color="deep-purple" @click="registerClicked()">Registro</v-btn>
+      <v-btn class="cancel-button" color="deep-purple" @click="cancelClicked()">Cancelar</v-btn>
     </div>
 
     <v-snackbar color="red" v-model="showError">{{ errorMessage }}</v-snackbar>
@@ -107,6 +109,16 @@ export default defineComponent({
         this.store.updateUser(this.store.user._id, userToUpdate);
       }
     },
+
+    cancelClicked() {
+      if (this.userId) {
+        console.log(this.userId);
+        this.$router.push({ name: "myrollerplaces" });
+      } else {
+        console.log("noID");
+        this.$router.push({ name: "login" });
+      }
+    },
   },
 });
 </script>
@@ -126,6 +138,10 @@ export default defineComponent({
   }
   .user-form_buttons {
     text-align: center;
+
+    .cancel-button {
+      margin-left: 20px;
+    }
   }
 }
 </style>

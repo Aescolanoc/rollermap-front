@@ -21,17 +21,20 @@
             <v-list-item v-if="store.user.name">
               <v-list-item-title>{{ store.user.name }}</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-menu_edit" @click="profileClicked">
+            <v-list-item v-if="!isGuest" class="user-menu_edit" @click="profileClicked">
               <v-list-item-title>Editar perfil</v-list-item-title>
             </v-list-item>
-            <v-list-item class="user-menu_logout" @click="store.userLogOut">
+            <v-list-item v-if="!isGuest" class="user-menu_logout" @click="store.userLogOut">
               <v-list-item-title>Cerrar sesión</v-list-item-title>
+            </v-list-item>
+            <v-list-item v-if="isGuest" class="user-menu_logout" @click="signIn">
+              <v-list-item-title>Registrarse</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
 
         <v-btn variant="text" color="purple-darken-3" @click="placesClicked">Sitios</v-btn>
-        <v-btn variant="text" color="purple-darken-3" @click="MyPlacesClicked">Mis sitios</v-btn>
+        <v-btn v-if="!isGuest" variant="text" color="purple-darken-3" @click="MyPlacesClicked">Mis sitios</v-btn>
       </div>
 
       <template v-slot:append>
@@ -80,6 +83,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useRollerMapStore } from "../stores/store";
+import { guestUser } from "@/config";
 
 export default defineComponent({
   name: "App",
@@ -93,7 +97,19 @@ export default defineComponent({
       selectedMobileMenu: null,
     };
   },
+  computed: {
+    isGuest() {
+      let userType = false;
+      if (this.store.user._id === guestUser.id) {
+        userType = true;
+      }
+      return userType;
+    },
+  },
   methods: {
+    signIn() {
+      this.$router.push({ name: "register" });
+    },
     MyPlacesClicked() {
       let token: string | null = sessionStorage.getItem("userToken");
       if (token) {
