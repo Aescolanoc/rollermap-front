@@ -13,7 +13,7 @@
         </v-tooltip>
       </div>
       <div>
-        <v-alert class="guest-banner" v-if="isGuest" border="top" color="primary">
+        <v-alert class="guest-banner" v-if="isGuest" border="top" color="purple">
           Regístrate para crear nuevos sitios
           <template v-slot:actions>
             <v-btn text color="deep-purple accent-4"> Registrarse </v-btn>
@@ -147,6 +147,7 @@ export default defineComponent({
   margin-bottom: 10px;
   width: fit-content;
   text-align: right;
+  opacity: 0.5;
 }
 
 .list-noplaces {
