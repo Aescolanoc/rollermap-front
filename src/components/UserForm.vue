@@ -113,7 +113,7 @@ export default defineComponent({
     cancelClicked() {
       if (this.userId) {
         console.log(this.userId);
-        this.$router.push({ name: "myrollerplaces" });
+        this.$router.push({ name: "rollerplaces" });
       } else {
         console.log("noID");
         this.$router.push({ name: "login" });

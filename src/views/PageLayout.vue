@@ -55,17 +55,23 @@
           </v-list-item-avatar>
           <v-list-item-title> Sitios</v-list-item-title>
         </v-list-item>
-        <v-list-item active-color="primary" @click.prevent="MyPlacesClicked">
+        <v-list-item v-if="!isGuest" active-color="primary" @click.prevent="MyPlacesClicked">
           <v-list-item-avatar start>
             <v-icon icon="mdi-heart"></v-icon>
           </v-list-item-avatar>
           <v-list-item-title> Mis Sitios</v-list-item-title>
         </v-list-item>
-        <v-list-item active-color="primary" @click="store.userLogOut">
+        <v-list-item v-if="!isGuest" active-color="primary" @click="store.userLogOut">
           <v-list-item-avatar start>
             <v-icon icon="mdi-logout"></v-icon>
           </v-list-item-avatar>
           <v-list-item-title> Cerrar sesión</v-list-item-title>
+        </v-list-item>
+        <v-list-item v-if="isGuest" active-color="primary" @click="signIn">
+          <v-list-item-avatar start>
+            <v-icon icon="mdi-login"></v-icon>
+          </v-list-item-avatar>
+          <v-list-item-title> Registro</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
