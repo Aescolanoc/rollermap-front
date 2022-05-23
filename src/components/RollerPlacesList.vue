@@ -1,15 +1,25 @@
 <template>
-  <v-row>
+  <v-row class="guest-banner-wrapper">
     <v-col cols="12" class="py-12">
-      <roller-filter @filtered="filterChanged"></roller-filter>
-      <v-tooltip bottom>
-        <template v-slot:activator="{ props }">
-          <v-btn icon color="deep-purple" class="button-create ml-8" v-bind="props" @click="newPlaceClicked()">
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-        </template>
-        <span>Crear Pista/Ruta</span>
-      </v-tooltip>
+      <div>
+        <roller-filter @filtered="filterChanged"></roller-filter>
+        <v-tooltip bottom v-if="!isGuest">
+          <template v-slot:activator="{ props }">
+            <v-btn icon color="deep-purple" class="button-create ml-8" v-bind="props" @click="newPlaceClicked()">
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </template>
+          <span>Crear Pista/Ruta</span>
+        </v-tooltip>
+      </div>
+      <div>
+        <v-alert class="guest-banner" v-if="isGuest" border="top" color="purple">
+          Regístrate para crear nuevos sitios
+          <template v-slot:actions>
+            <v-btn text color="deep-purple accent-4"> Registrarse </v-btn>
+          </template>
+        </v-alert>
+      </div>
     </v-col>
   </v-row>
 
@@ -35,6 +45,7 @@ import { defineComponent } from "vue";
 import { PlaceType } from "@/helpers/rollerMapEnums";
 import type RollerPlace from "@/types/RollerPlace";
 import RollerFilter from "./RollerFilter.vue";
+import { guestUser } from "@/config";
 
 export default defineComponent({
   setup() {
@@ -49,6 +60,16 @@ export default defineComponent({
   watch: {
     currentPage(): void {
       this.pageChanged();
+    },
+  },
+
+  computed: {
+    isGuest() {
+      let userType = false;
+      if (this.store.user._id === guestUser.id) {
+        userType = true;
+      }
+      return userType;
     },
   },
 
@@ -114,6 +135,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+.guest-banner-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px, 0px;
+  margin: 20px, 0px;
+}
+
+.guest-banner {
+  margin-bottom: 10px;
+  width: fit-content;
+  text-align: right;
+  opacity: 0.5;
+}
+
 .list-noplaces {
   display: flex;
   flex-direction: column;

@@ -9,7 +9,7 @@
           srcset="../assets/img/login-logo.png 1x, ../assets/img/login-logo@2x.png 2x"
         />
         <div class="login-form">
-          <v-form @submit.prevent="loginClicked">
+          <v-form @submit.prevent="loginClicked('type')">
             <v-text-field v-model="email" label="E-mail" required></v-text-field>
             <v-text-field
               v-model="password"
@@ -21,9 +21,16 @@
             ></v-text-field>
           </v-form>
           <div class="login-buttons">
-            <v-btn class="login-buttons_login" color="deep-purple" @click="loginClicked()">Iniciar sesion</v-btn>
+            <v-btn class="login-buttons_login" color="deep-purple" @click="loginClicked('login')">Iniciar sesion</v-btn>
             <v-btn class="login-buttons_register" color="purple-darken-3" variant="text" @click="registerClicked"
               >Registrate aquí</v-btn
+            >
+            <v-btn
+              variant="outlined"
+              class="login-buttons_login--guest"
+              color="deep-purple"
+              @click="loginClicked('guest')"
+              >Acceder como invitado</v-btn
             >
           </div>
         </div>
@@ -39,6 +46,7 @@
 <script lang="ts">
 import { useRollerMapStore } from "@/stores/store";
 import { defineComponent } from "vue";
+import { guestUser } from "../config";
 
 export default defineComponent({
   setup() {
@@ -54,9 +62,14 @@ export default defineComponent({
     };
   },
   methods: {
-    async loginClicked() {
+    async loginClicked(type: string) {
       try {
-        let response = await this.store.login({ email: this.email, password: this.password });
+        let response;
+        if (type === "login") {
+          response = await this.store.login({ email: this.email, password: this.password });
+        } else {
+          response = await this.store.login({ email: guestUser.user, password: guestUser.password });
+        }
         if (response) {
           this.$router.push({ name: "rollerplaces" });
         }
@@ -99,6 +112,12 @@ export default defineComponent({
 
   .login-buttons {
     text-align: center;
+
+    &_login--guest {
+      margin-top: 10px;
+      text-align: center;
+      font-size: x-small;
+    }
   }
 
   .h100 {

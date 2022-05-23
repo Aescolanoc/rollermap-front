@@ -19,22 +19,25 @@
       <v-card-title class="name"> {{ place.name }} </v-card-title>
 
       <v-card-actions>
-        <v-btn
-          icon="mdi-heart"
-          color="purple"
-          class="roller-card_favorite-button elevation-1"
-          v-if="isInFavorites"
-          @click="favoriteClicked"
-        >
-        </v-btn>
-        <v-btn
-          icon="mdi-heart-outline"
-          color="purple"
-          class="roller-card_favorite-button elevation-1"
-          v-else
-          @click="favoriteClicked"
-        >
-        </v-btn>
+        <div v-if="!isGuest">
+          <v-btn
+            icon="mdi-heart"
+            color="purple"
+            class="roller-card_favorite-button elevation-1"
+            v-if="isInFavorites"
+            @click="favoriteClicked"
+          >
+          </v-btn>
+          <v-btn
+            icon="mdi-heart-outline"
+            color="purple"
+            class="roller-card_favorite-button elevation-1"
+            v-else
+            @click="favoriteClicked"
+          >
+          </v-btn>
+        </div>
+
         <v-chip label :color="isRink ? 'cyan-darken-2' : 'red-darken-1'">
           <v-icon left icon="mdi-rollerblade"></v-icon>
           {{ isRink ? "Pista" : "Ruta" }}
@@ -51,6 +54,7 @@ import { useRollerMapStore } from "@/stores/store";
 import { defineComponent } from "vue";
 import { mapBoxConfig } from "@/config";
 import { PlaceType } from "@/helpers/rollerMapEnums";
+import { guestUser } from "@/config";
 
 export default defineComponent({
   setup() {
@@ -64,6 +68,14 @@ export default defineComponent({
     },
   },
   computed: {
+    isGuest() {
+      let userType = false;
+      if (this.store.user._id === guestUser.id) {
+        userType = true;
+      }
+      return userType;
+    },
+
     isInFavorites() {
       return this.store?.user?.favorites?.includes(this.place._id);
     },
