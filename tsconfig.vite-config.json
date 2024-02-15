@@ -4,6 +4,7 @@
   "compilerOptions": {
     "composite": true,
     "types": ["node", "vitest"],
-    "ignoreDeprecations": "5.0"
+    "ignoreDeprecations": "5.0",
+    "verbatimModuleSyntax": true
   }
 }
