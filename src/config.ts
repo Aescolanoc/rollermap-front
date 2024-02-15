@@ -1,6 +1,4 @@
-let process: any;
-
-const p = process?.env ? process.env : import.meta.env;
+const p = import.meta.env;
 
 export const firebaseConfig = {
   apiKey: p.VITE_FIREBASE_APIKEY,
