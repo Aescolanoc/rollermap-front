@@ -5,7 +5,6 @@
     "composite": true,
     "lib": [],
     "types": ["node", "jsdom"],
-    "ignoreDeprecations": "5.0",
     "verbatimModuleSyntax": true
   }
 }
